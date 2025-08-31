@@ -1,7 +1,7 @@
 def main():
     from Classes import Cliente, Filme, Aluguel, Diretor, Produtora
     from Error import ElementoExistenteError, ElementoNaoEncontradoError, AluguelRealizadoError, MenorDeIdadeError, obter_input
-    from Config import session, limpar_tela
+    from Config import db, limpar_tela
     import sys
 
     while True:
@@ -73,7 +73,7 @@ def main():
                     sinopse = obter_input("Digite a sinopse do filme: ")
                     diretor = obter_input("Digite o nome do diretor do filme: ")
                     produtora = obter_input("Digite o nome da produtora do filme: ")
-                    Filme.cadastrar_filme(session, nome_filme, genero, ano_estreia, classificacao, sinopse, diretor, produtora)
+                    Filme.cadastrar_filme(db.session, nome_filme, genero, ano_estreia, classificacao, sinopse, diretor, produtora)
                 
                 elif opcao_cadastrar == "0":
                     limpar_tela()
@@ -115,22 +115,22 @@ def main():
                     limpar_tela()
                     cpf = obter_input("\nDigite o CPF do cliente: ")
                     
-                    Cliente.consultar_cliente(session, cpf)
+                    Cliente.consultar_cliente(db.session, cpf)
 
                 elif opcao_consultar == 2:
                     limpar_tela()
                     nome_filme = obter_input("Digite o nome do filme: ")
-                    Filme.consultar_filme(session, nome_filme)
+                    Filme.consultar_filme(db.session, nome_filme)
 
                 elif opcao_consultar == 3:
                     limpar_tela()
                     nome_diretor = obter_input("Digite o nome do diretor: ")
-                    Diretor.consultar_diretor(session, nome_diretor)
+                    Diretor.consultar_diretor(db.session, nome_diretor)
 
                 elif opcao_consultar == 4:
                     limpar_tela()
                     nome_produtora = obter_input("Digite o nome da produtora: ")
-                    Produtora.consultar_produtora(session, nome_produtora)
+                    Produtora.consultar_produtora(db.session, nome_produtora)
                 
                 elif opcao_consultar == 5:
                     limpar_tela()
@@ -146,13 +146,13 @@ def main():
                         # Consultar por ID do Aluguel
                         limpar_tela()
                         id_aluguel_consulta = obter_input("ID do aluguel: ", int)
-                        Aluguel.consultar_aluguel_por_id(session, id_aluguel_consulta)
+                        Aluguel.consultar_aluguel_por_id(db.session, id_aluguel_consulta)
 
                     elif opcao_consulta_aluguel == "2":
                         # Consultar por CPF do Cliente
                         limpar_tela()
                         cpf_consulta = obter_input("CPF do cliente (somente números): ")
-                        Aluguel.consultar_aluguel_por_cpf(session, cpf_consulta)
+                        Aluguel.consultar_aluguel_por_cpf(db.session, cpf_consulta)
                     
                     elif opcao_consulta_aluguel == "0":
                         limpar_tela()
@@ -190,12 +190,12 @@ def main():
                     cliente_cpf = obter_input("Digite o CPF do cliente: ")
                     filme = obter_input("Digite o id do filme: ")
                     valor_diaria = obter_input("Digite o valor da diaria do aluguel: ", float)
-                    Aluguel.fazer_aluguel(session, cliente_cpf, filme, valor_diaria)
+                    Aluguel.fazer_aluguel(db.session, cliente_cpf, filme, valor_diaria)
                 
                 elif opcao_alugar == 2:
                     limpar_tela()
                     aluguel_id = obter_input("Digite o ID do aluguel: ",int)
-                    Aluguel.devolver_aluguel(session, aluguel_id)
+                    Aluguel.devolver_aluguel(db.session, aluguel_id)
 
                 elif opcao_alugar == 0:
                     limpar_tela()
@@ -232,27 +232,27 @@ def main():
             try:
                 if opcao_listar == 1:
                     limpar_tela()
-                    Cliente.listar_clientes(session)
+                    Cliente.listar_clientes(db.session)
             
                 elif opcao_listar == 2:
                     limpar_tela()
-                    Filme.listar_filmes(session)
+                    Filme.listar_filmes(db.session)
 
                 elif opcao_listar== 3:
                     limpar_tela()
-                    Filme.listar_filmes_disponiveis(session)
+                    Filme.listar_filmes_disponiveis(db.session)
 
                 elif opcao_listar == 4:
                     limpar_tela()
-                    Aluguel.listar_filmes_alugados(session)
+                    Aluguel.listar_filmes_alugados(db.session)
 
                 elif opcao_listar == 5:
                     limpar_tela()
-                    Diretor.listar_diretores(session)
+                    Diretor.listar_diretores(db.session)
 
                 elif opcao_listar == 6:
                     limpar_tela()
-                    Produtora.listar_produtoras(session)
+                    Produtora.listar_produtoras(db.session)
 
                 elif opcao_listar == 0:
                     limpar_tela()
@@ -280,12 +280,12 @@ def main():
                 if opcao_alterar == 1:
                     limpar_tela()
                     cpf = obter_input("Digite o CPF do cliente: ")
-                    Cliente.alterar_cliente(session, cpf)
+                    Cliente.alterar_cliente(db.session, cpf)
 
                 elif opcao_alterar == 2:
                     limpar_tela()
                     aluguel_id = obter_input("Digite o ID do aluguel: ",int)
-                    Aluguel.alterar_aluguel(session, aluguel_id)
+                    Aluguel.alterar_aluguel(db.session, aluguel_id)
 
                 elif opcao_alterar == 0:
                     limpar_tela()
@@ -314,17 +314,17 @@ def main():
                 if opcao_excluir == 1:
                     limpar_tela()
                     cpf = obter_input("Digite o CPF do cliente: ", str)
-                    Cliente.excluir_cliente(session, cpf)
+                    Cliente.excluir_cliente(db.session, cpf)
 
                 elif opcao_excluir == 2:
                     limpar_tela()
                     nome_filme = obter_input("Digite o nome do filme: ", str)
-                    Filme.excluir_filme(session, nome_filme)
+                    Filme.excluir_filme(db.session, nome_filme)
 
                 elif opcao_excluir == 3:
                     limpar_tela()
                     id_aluguel = obter_input("Digite o ID do aluguel: ", int)
-                    Aluguel.excluir_aluguel(session, id_aluguel)
+                    Aluguel.excluir_aluguel(db.session, id_aluguel)
                 
                 elif opcao == 0: #SAIR
                     limpar_tela()

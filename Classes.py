@@ -5,14 +5,14 @@ from Config import *
 from datetime import datetime
 from Locadora import main
 
-class Cliente(Base):
+class Cliente(db.Model):
     __tablename__ = 'clientes'
 
-    cpf = Column(String(11), primary_key=True)  # CPF como chave primária
-    nome = Column(String, nullable=False)
-    idade = Column(Integer, nullable=False)
-    contato = Column(String, nullable=False)
-    endereco = Column(String, nullable=False)
+    cpf = db.Column(db.String(11), primary_key=True)  # CPF como chave primária
+    nome = db.Column(db.String(60), nullable=False)
+    idade = db.Column(db.Integer, nullable=False)
+    contato = db.Column(db.String(20), nullable=False)
+    endereco = db.Column(db.String(100), nullable=False)
 
     alugueis = relationship("Aluguel", back_populates="cliente")
 
@@ -20,15 +20,15 @@ class Cliente(Base):
         if idade<18:
             raise MenorDeIdadeError("\nOps, parece que o apressadinho não tem 18 anos!")
         
-        cliente_existente = session.query(Cliente).filter_by(cpf = cpf).first()
+        cliente_existente = db.session.query(Cliente).filter_by(cpf = cpf).first()
         if cliente_existente:
             limpar_tela()
             raise ElementoExistenteError(f"\nErro: O CPF '{cpf}' já está cadastrado para outro cliente.")
 
         novo_cliente = Cliente(cpf = cpf, nome = nome, idade = idade, contato = contato, endereco = endereco)
-        session.add(novo_cliente)
+        db.session.add(novo_cliente)
         print(f"\nCliente '{nome}' criado com sucesso!")
-        session.commit()
+        db.session.commit()
         
         menu_saida()
     
@@ -149,23 +149,23 @@ class Cliente(Base):
             print("\nOpção inválida. Tente novamente.")
             Cliente.excluir_cliente(session, cpf)
             
-class Diretor(Base):
+class Diretor(db.Model):
     __tablename__ = 'diretores'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    nome_diretor = Column(String(100), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome_diretor = db.Column(db.String(100), nullable=False)
 
     filmes = relationship("Filme", back_populates="diretor")
 
     def cadastrar_diretor(nome):
-        diretor_existente = session.query(Diretor).filter_by(nome_diretor = nome).first()
+        diretor_existente = db.session.query(Diretor).filter_by(nome_diretor = nome).first()
         if diretor_existente:
             raise ElementoExistenteError(f"\nErro: O nome '{nome}' é um diretor existente.")
 
         novo_diretor = Diretor(nome_diretor = nome)
-        session.add(novo_diretor)
+        db.session.add(novo_diretor)
         print(f"\nDiretor '{nome}' criado com sucesso!")
-        session.commit()
+        db.session.commit()
         
         return novo_diretor
 
@@ -191,23 +191,23 @@ class Diretor(Base):
 
         menu_saida()
 
-class Produtora(Base):
+class Produtora(db.Model):
     __tablename__ = 'produtoras'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    nome_produtora = Column(String(100), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome_produtora = db.Column(db.String(100), nullable=False)
 
     filmes = relationship("Filme", back_populates="produtora")
 
     def cadastrar_produtora(nome):
-        produtora_existente = session.query(Produtora).filter_by(nome_produtora = nome).first()
+        produtora_existente = db.session.query(Produtora).filter_by(nome_produtora = nome).first()
         if produtora_existente:
             raise ElementoExistenteError(f"\nErro: A produtora '{nome}' já existe.")
 
         nova_produtora = Produtora(nome_produtora = nome)
-        session.add(nova_produtora)
+        db.session.add(nova_produtora)
         print(f"\nProdutora '{nome}' criada com sucesso!")
-        session.commit()
+        db.session.commit()
 
         return nova_produtora
 
@@ -233,19 +233,19 @@ class Produtora(Base):
 
         menu_saida()
 
-class Filme(Base):
+class Filme(db.Model):
     __tablename__ = 'filmes'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    nome_filme = Column(String(100), nullable=False)
-    genero = Column(String(60), nullable=False)
-    classificacao = Column(String(10), nullable=False)
-    ano_estreia = Column(Integer, nullable=False)
-    sinopse = Column(String(500), nullable=True)   
-    disponivel = Column(Boolean, default=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome_filme = db.Column(db.String(100), nullable=False)
+    genero = db.Column(db.String(60), nullable=False)
+    classificacao = db.Column(db.String(10), nullable=False)
+    ano_estreia = db.Column(db.Integer, nullable=False)
+    sinopse = db.Column(db.String(500), nullable=True)   
+    disponivel = db.Column(db.Boolean, default=True)
 
-    diretor_id = Column(Integer, ForeignKey('diretores.id'), nullable=False)
-    produtora_id = Column(Integer, ForeignKey('produtoras.id'), nullable=False)
+    diretor_id = db.Column(db.Integer, ForeignKey('diretores.id'), nullable=False)
+    produtora_id = db.Column(db.Integer, ForeignKey('produtoras.id'), nullable=False)
 
     diretor = relationship("Diretor", back_populates="filmes")
     produtora = relationship("Produtora", back_populates="filmes")
@@ -348,19 +348,19 @@ class Filme(Base):
             print("\nOpção inválida. Tente novamente.")
             Filme.excluir_filme(session, filme)
         
-class Aluguel(Base):
+class Aluguel(db.Model):
     __tablename__ = 'alugueis'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    valor_diaria = Column(Float, nullable=False)
-    data_aluguel = Column(DateTime, default=datetime.now)
-    data_devolucao = Column(DateTime, default=None)
-    tempo_aluguel = Column(Integer, nullable=True)
-    valor = Column(Float, nullable=True)
-    status = Column(Boolean, default=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    valor_diaria = db.Column(db.Float, nullable=False)
+    data_aluguel = db.Column(db.DateTime, default=datetime.now)
+    data_devolucao = db.Column(db.DateTime, default=None)
+    tempo_aluguel = db.Column(db.Integer, nullable=True)
+    valor = db.Column(db.Float, nullable=True)
+    status = db.Column(db.Boolean, default=True)
 
-    cliente_cpf = Column(String, ForeignKey('clientes.cpf'), nullable=False)
-    filme_id = Column(Integer, ForeignKey('filmes.id'), nullable=False)
+    cliente_cpf = db.Column(db.String(11), ForeignKey('clientes.cpf'), nullable=False)
+    filme_id = db.Column(db.Integer, ForeignKey('filmes.id'), nullable=False)
 
     cliente = relationship("Cliente", back_populates="alugueis")
     filme = relationship("Filme", back_populates="alugueis")
@@ -384,8 +384,7 @@ class Aluguel(Base):
             session.add(aluguel)
             session.commit()
             print(f"Aluguel do cliente '{cliente.nome}' para o filme '{filme.nome_filme}' efetuado com sucesso!")
-            
-            menu_saida()
+            return f"Aluguel do cliente '{cliente.nome}' para o filme '{filme.nome_filme}' efetuado com sucesso!"
         else:
             raise AluguelRealizadoError(f"Erro: O filme '{filme.nome_filme}' nao esta disponivel para alugar.")
 
