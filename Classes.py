@@ -297,6 +297,21 @@ class Filme(db.Model):
         print(f"Produtora: {filme.produtora.nome_produtora}")
 
         menu_saida()
+        
+    def buscar_filmes(session, nome_filme):
+        termo = f"%{nome_filme}%"
+        filme = session.query(Filme).filter(Filme.nome_filme.ilike(termo)).all()
+        if not filme:
+            raise ElementoNaoEncontradoError(f"\nErro: O filme '{nome_filme}' não foi encontrado.")
+        return filme
+        print(f"\nId: {filme.id}")
+        print(f"Filme: {filme.nome_filme}")
+        print(f"Genero: {filme.genero}")
+        print(f"Ano de Estreia: {filme.ano_estreia}")
+        print(f"Classificação: {filme.classificacao}")
+        print(f"Sinopse: {filme.sinopse}")
+        print(f"Diretor: {filme.diretor.nome_diretor}")
+        print(f"Produtora: {filme.produtora.nome_produtora}")
 
     def listar_filmes_disponiveis(session):
         filmes_disponiveis = session.query(Filme).filter_by(disponivel=True).all()
