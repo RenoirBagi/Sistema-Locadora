@@ -149,90 +149,6 @@ class Cliente(db.Model):
             print("\nOpção inválida. Tente novamente.")
             Cliente.excluir_cliente(session, cpf)
             
-class Diretor(db.Model):
-    __tablename__ = 'diretores'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nome_diretor = db.Column(db.String(100), nullable=False)
-
-    filmes = relationship("Filme", back_populates="diretor")
-
-    def cadastrar_diretor(nome):
-        diretor_existente = db.session.query(Diretor).filter_by(nome_diretor = nome).first()
-        if diretor_existente:
-            raise ElementoExistenteError(f"\nErro: O nome '{nome}' é um diretor existente.")
-
-        novo_diretor = Diretor(nome_diretor = nome)
-        db.session.add(novo_diretor)
-        print(f"\nDiretor '{nome}' criado com sucesso!")
-        db.session.commit()
-        
-        return novo_diretor
-
-    def consultar_diretor(session, nome_diretor):
-        diretor = session.query(Diretor).filter_by(nome_diretor=nome_diretor).first()
-        if not diretor:
-            raise ElementoNaoEncontradoError(f"\nErro: O diretor '{nome_diretor}' não foi encontrado.")
-        
-        print(f'\nFilmes dirigidos por: {diretor.nome_diretor}')
-        for filme in diretor.filmes:
-            print(filme.nome_filme)
-
-        menu_saida()
-
-    def listar_diretores(session):
-        diretores = session.query(Diretor).order_by(Diretor.nome_diretor).all()
-        if diretores:
-            print("\nDiretores:")
-            for diretor in diretores:
-                print(f"ID: {diretor.id}, Nome: {diretor.nome_diretor}")
-        else:
-            raise ElementoNaoEncontradoError("\nNenhum diretor encontrado.")
-
-        menu_saida()
-
-class Produtora(db.Model):
-    __tablename__ = 'produtoras'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nome_produtora = db.Column(db.String(100), nullable=False)
-
-    filmes = relationship("Filme", back_populates="produtora")
-
-    def cadastrar_produtora(nome):
-        produtora_existente = db.session.query(Produtora).filter_by(nome_produtora = nome).first()
-        if produtora_existente:
-            raise ElementoExistenteError(f"\nErro: A produtora '{nome}' já existe.")
-
-        nova_produtora = Produtora(nome_produtora = nome)
-        db.session.add(nova_produtora)
-        print(f"\nProdutora '{nome}' criada com sucesso!")
-        db.session.commit()
-
-        return nova_produtora
-
-    def consultar_produtora(session, nome_produtora):
-        produtora = session.query(Produtora).filter_by(nome_produtora=nome_produtora).first()
-        if not produtora:
-            raise ElementoNaoEncontradoError(f"\nErro: A produtora '{nome_produtora}' não foi encontrada.")
-        
-        print(f'\nFilmes produzidas por: {produtora.nome_produtora}')
-        for filme in produtora.filmes:
-            print(filme.nome_filme)
-
-        menu_saida()
-
-    def listar_produtoras(session):
-        produtoras = session.query(Produtora).order_by(Produtora.nome_produtora).all()
-        if produtoras:
-            print("\nProdutoras:")
-            for produtora in produtoras:
-                print(f"ID: {produtora.id}, Nome: {produtora.nome_produtora}")
-        else:
-            raise ElementoNaoEncontradoError("\nNenhuma produtora encontrada.")
-
-        menu_saida()
-
 class Filme(db.Model):
     __tablename__ = 'filmes'
 
@@ -243,44 +159,22 @@ class Filme(db.Model):
     ano_estreia = db.Column(db.Integer, nullable=False)
     sinopse = db.Column(db.String(500), nullable=True)   
     disponivel = db.Column(db.Boolean, default=True)
+    nome_diretor = db.Column(db.String(50), nullable=False)
+    nome_produtora = db.Column(db.String(50), nullable=False)
 
-    diretor_id = db.Column(db.Integer, ForeignKey('diretores.id'), nullable=False)
-    produtora_id = db.Column(db.Integer, ForeignKey('produtoras.id'), nullable=False)
-
-    diretor = relationship("Diretor", back_populates="filmes")
-    produtora = relationship("Produtora", back_populates="filmes")
     alugueis = relationship("Aluguel", back_populates="filme")
 
-
     def cadastrar_filme(session, nome_filme, genero, ano_estreia, classificacao, sinopse, nome_diretor, nome_produtora):
-        diretor = session.query(Diretor).filter_by(nome_diretor=nome_diretor).first()
-        produtora = session.query(Produtora).filter_by(nome_produtora=nome_produtora).first()
         filme_existente = session.query(Filme).filter_by(nome_filme=nome_filme).first()
-
-        if not diretor:
-            Diretor.cadastrar_diretor(nome_diretor)
-            diretor = session.query(Diretor).filter_by(nome_diretor=nome_diretor).first()
-        
-        if not produtora:
-            Produtora.cadastrar_produtora(nome_produtora)
-            produtora = session.query(Produtora).filter_by(nome_produtora=nome_produtora).first()
-
-        if not diretor:
-            raise ElementoNaoEncontradoError(f"\nErro: Diretor '{nome_diretor}' não encontrado.")
-        
-        if not produtora:
-            raise ElementoNaoEncontradoError(f"\nErro: Produtora '{nome_produtora}' não encontrada.")
 
         if filme_existente:
             raise ElementoExistenteError(f"\nErro: O filme '{nome_filme}' já está cadastrado.")
 
         novo_filme = Filme(nome_filme=nome_filme, genero=genero, ano_estreia=ano_estreia,
-                            classificacao=classificacao, sinopse=sinopse, diretor=diretor, produtora=produtora)
+                            classificacao=classificacao, sinopse=sinopse, nome_diretor=nome_diretor, nome_produtora=nome_produtora)
         session.add(novo_filme)
         session.commit()
         print(f"\nFilme '{nome_filme}' cadastrado com sucesso!")
-        
-        menu_saida()
 
     def consultar_filme(session, nome_filme):
         filme = session.query(Filme).filter_by(nome_filme=nome_filme).first()

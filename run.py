@@ -1,7 +1,7 @@
 from flask import Flask
 from Config import init_db, db
 from routes import init_routes
-from Classes import Cliente, Diretor, Produtora, Filme, Aluguel
+from Classes import Cliente, Filme, Aluguel
 
 def create_app():
     """
