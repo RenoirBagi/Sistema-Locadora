@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from app.extensions import db
 from app.config_db import init_db
 from app.routes import register_routes
@@ -12,6 +13,8 @@ def create_app():
     init_db(app)
 
     register_routes(app)
+
+    CORS(app)
 
     with app.app_context():
         db.create_all()

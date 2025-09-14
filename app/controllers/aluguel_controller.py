@@ -19,8 +19,8 @@ def criar_aluguel(data):
     filme = Filme.query.filter_by(id=codigo_filme).first()
     if not filme:
         return {"erro": f"Filme com ID {codigo_filme} não encontrado"}, 404
-    if not filme.disponivel:
-        return {"erro": f"Filme '{filme.nome_filme}' não está disponível"}, 400
+    if filme.disponivel != 1:
+        return {"erro": f"Filme '{filme.titulo}' não está disponível"}, 400
 
     # Evitar duplicidade de aluguel ativo
     aluguel_existente = Aluguel.query.filter_by(cliente_cpf=cpf_cliente, filme_id=codigo_filme, status=True).first()
@@ -55,27 +55,39 @@ def listar_alugueis():
             "valor": aluguel.valor,
             "status": aluguel.status
         })
-    return jsonify(result)
+    return result
 
 
 def atualizar_aluguel(id, data):
     aluguel = Aluguel.query.get(id)
     if not aluguel:
         return {"erro": "Aluguel não encontrado"}, 404
+    
+    status_original = aluguel.status
 
-    # Atualizar apenas campos permitidos
-    for campo in ["valor_diaria", "data_aluguel", "data_devolucao", "status"]:
-        if campo in data:
-            setattr(aluguel, campo, data[campo])
+    for campo, valor in data.items():
+        if campo not in ['status', 'data_devolucao']:
+            setattr(aluguel, campo, valor)
+    
+    if "data_devolucao" in data and data["data_devolucao"]:
+        aluguel.data_devolucao = datetime.fromisoformat(data["data_devolucao"].replace("Z", "+00:00"))
 
-    # Se devolver, calcular tempo e valor
-    if data.get("status") is False and aluguel.status:  # devolução
+    status_enviado = data.get("status")
+    devolucao = False
+    if status_enviado in [False, 0, "0", "false", "False"] and status_original:
+        devolucao = True
+
+    if devolucao:
+        aluguel.status = False
         aluguel.data_devolucao = datetime.now()
-        aluguel.tempo_aluguel = (aluguel.data_devolucao - aluguel.data_aluguel).days
+        aluguel.tempo_aluguel = (aluguel.data_devolucao - aluguel.data_aluguel).days or 1
         aluguel.valor = aluguel.tempo_aluguel * aluguel.valor_diaria
-        # Liberar o filme
+
         filme = Filme.query.get(aluguel.filme_id)
         filme.disponivel = True
+    else:
+        if status_enviado is not None:
+            aluguel.status = bool(status_enviado)
 
     db.session.commit()
     return {"mensagem": "Aluguel atualizado com sucesso"}
