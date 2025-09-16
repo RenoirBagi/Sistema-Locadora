@@ -69,15 +69,16 @@ def atualizar_aluguel(id, data):
         if campo not in ['status', 'data_devolucao']:
             setattr(aluguel, campo, valor)
     
-    if "data_devolucao" in data and data["data_devolucao"]:
+    # if "data_devolucao" in data and data["data_devolucao"]:
+    #     aluguel.data_devolucao = datetime.fromisoformat(data["data_devolucao"].replace("Z", "+00:00"))
+
+    # status_enviado = data.get("status")
+    # devolucao = False
+    # if status_enviado in [False, 0, "0", "false", "False"] and status_original:
+    #     devolucao = True
+
+    if data.get("data_devolucao") and status_original:
         aluguel.data_devolucao = datetime.fromisoformat(data["data_devolucao"].replace("Z", "+00:00"))
-
-    status_enviado = data.get("status")
-    devolucao = False
-    if status_enviado in [False, 0, "0", "false", "False"] and status_original:
-        devolucao = True
-
-    if devolucao:
         aluguel.status = False
         aluguel.data_devolucao = datetime.now()
         aluguel.tempo_aluguel = (aluguel.data_devolucao - aluguel.data_aluguel).days or 1
@@ -86,6 +87,7 @@ def atualizar_aluguel(id, data):
         filme = Filme.query.get(aluguel.filme_id)
         filme.disponivel = True
     else:
+        status_enviado = data.get("status")
         if status_enviado is not None:
             aluguel.status = bool(status_enviado)
 
