@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Aluguéis - YOLOOK</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">YOLOOK</a>
+      <nav class="main-nav">
+        <a href="#">Cadastrar</a>
+        <a href="novo_aluguel.html">Alugar</a>
+      </nav>
+      <div class="search-container">
+        <input type="search" placeholder="Buscar filme">
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <h1>Lista de Aluguéis</h1>
+    <button onclick="window.location.href='novo_aluguel.html'">Novo Aluguel</button>
+  
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>CPF Cliente</th>
+          <th>Código Filme</th>
+          <th>Data Aluguel</th>
+          <th>Data Devolução</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="alugueis-tbody">
+        </tbody>
+    </table>
+  </main>
+  
+  <script src="js/alugueis.js"></script>
+</body>
+</html>

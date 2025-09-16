@@ -1,0 +1,277 @@
+/* --- Importando uma fonte moderna do Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* --- ESTILOS GERAIS E RESET --- */
+body {
+    background-color: #10141E;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #FFFFFF;
+}
+
+/* --- CABEÇALHO (para todas as páginas) --- */
+.site-header {
+    background-color: #10141E;
+    padding: 1rem 0;
+    width: 100%;
+    border-bottom: 1px solid #2A364D;
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.main-nav a {
+    color: #C0C8E0;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: #FFFFFF;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-container input {
+    background-color: #2A364D;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px 10px 40px;
+    color: #FFFFFF;
+    width: 250px;
+    font-size: 0.9rem;
+}
+
+.search-container input::placeholder {
+    color: #C0C8E0;
+}
+
+.search-container::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23C0C8E0' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* --- LAYOUT PRINCIPAL (para empurrar o conteúdo) --- */
+.main-content {
+    padding: 40px 2rem 0 2rem; /* Espaço para o header + padding */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* --- PÁGINA: LISTA DE ALUGUÉIS --- */
+.main-content button {
+    background-color: #2979FF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 2rem;
+}
+
+.main-content button:hover {
+    background-color: #1E66E5;
+    transform: translateY(-2px);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1A2233;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+th, td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #2A364D;
+}
+
+thead tr {
+    background-color: #2A364D;
+}
+
+th {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #C0C8E0;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: #2A364D;
+}
+
+td:last-child {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-acao {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-devolver {
+    background-color: #2979FF;
+}
+
+.btn-devolver:hover {
+    background-color: #1E66E5;
+}
+
+.btn-deletar {
+    background-color: #D32F2F;
+}
+
+.btn-deletar:hover {
+    background-color: #B71C1C;
+}
+
+
+/* --- PÁGINA: NOVO ALUGUEL (FORMULÁRIO) --- */
+main.form-page-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 85px); /* Altura da tela menos o header */
+}
+
+.form-container {
+    background-color: #1A2233;
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.form-header {
+    margin-bottom: 1.5rem;
+}
+
+.form-header span {
+    color: #2979FF;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.form-header h1 {
+    margin: 0;
+    font-size: 3rem;
+    line-height: 1.1;
+}
+
+.form-container h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #C0C8E0;
+    margin-bottom: 2rem;
+}
+
+.form-container form input {
+    width: 100%;
+    background-color: #2979FF;
+    border: none;
+    border-radius: 25px;
+    padding: 14px 20px;
+    margin-bottom: 1rem;
+    color: white;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-container form input::placeholder {
+    color: #FFFFFF;
+    opacity: 0.8;
+}
+
+.form-container form input:focus {
+    outline: 2px solid #5A9BFF;
+}
+
+.btn-primary {
+    background-color: #2979FF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: #1E66E5;
+}
+
+.link-voltar {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: #C0C8E0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.link-voltar:hover {
+    color: #FFFFFF;
+}

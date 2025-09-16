@@ -32,7 +32,24 @@ def init_routes(app):
             return jsonify({'mensagem':mensagem}), 200
         except Exception as e:
             return jsonify({'erro': str(e)}), 400
+        
+    @app.route('/api/filmes', methods=['POST'])
+    def cadastrar_filme():
+        data = request.json
+        nome_filme = data.get('nome_filme')
+        genero = data.get('genero')
+        classificacao = data.get('classificacao')
+        ano_estreia =data.get('ano_estreia')
+        sinopse = data.get('sinopse')
+        nome_diretor = data.get('nome_diretor')
+        nome_produtora = data.get('nome_produtora')
+        try:
+            mensagem = Classes.Filme.cadastrar_filme(db.session,nome_filme,genero,ano_estreia,classificacao,sinopse,nome_diretor,nome_produtora)
+            return jsonify({'mensagem':mensagem}), 200
+        except Exception as e:
+            return jsonify({'erro':str(e)}), 400
     
+
     
 
     
