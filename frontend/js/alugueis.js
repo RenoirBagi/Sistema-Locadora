@@ -13,8 +13,9 @@ async function carregarAlugueis() {
       <td>${a.id}</td>
       <td>${a.cpf_cliente}</td>
       <td>${a.codigo_filme}</td>
-      <td>${a.data_aluguel || ""}</td>
-      <td>${a.data_devolucao || ""}</td>
+      <td>${a.data_aluguel ? a.data_aluguel.split('T')[0] : ""}</td>
+      <td>${a.data_devolucao ? a.data_devolucao.split('T')[0] : ""}</td>
+      <td>${a.valor || ""}</td>
       <td>
         <button onclick="devolverAluguel(${a.id})">Devolver</button>
         <button onclick="deletarAluguel(${a.id})">Deletar</button>
