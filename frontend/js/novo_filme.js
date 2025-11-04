@@ -7,7 +7,7 @@ document.getElementById("form-filme").addEventListener("submit", async (e) => {
     "titulo": e.target.titulo_filme.value,
     "genero": e.target.genero_filme.value,
     "ano": e.target.ano_filme.value,
-    "preco": e.target.preco_filme.value,
+    "preco": parseFloat(e.target.preco_filme.value),
   };
 
   console.log(data);
