@@ -15,7 +15,7 @@ const dpPrev = datePicker?.querySelector('[data-action="prev"]');
 const dpNext = datePicker?.querySelector('[data-action="next"]');
 
 let seriesChart;
-let statusChart;
+let statusChart; 
 let topFilmesChart;
 let pickerMonth = new Date();
 let activeDateInput = null;
