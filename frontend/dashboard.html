@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Vendas - YOLOOK</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-page">
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">YOLOOK</a>
+      <nav class="main-nav">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="index.html">Aluguéis</a>
+        <a href="filmes.html">Filmes</a>
+        <a href="novo_aluguel.html">Alugar</a>
+        <a href="novo_cliente.html">Cadastrar</a>
+      </nav>
+      <div class="search-container">
+        <input type="search" placeholder="Buscar filme" disabled>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content dashboard-main">
+    <section class="dashboard-header">
+      <div>
+        <p class="eyebrow">Visão geral</p>
+        <h1>Dashboard de Vendas</h1>
+      </div>
+      <form id="filtros-dashboard" class="filter-form">
+        <label>
+          Início
+          <input type="text" name="inicio" placeholder="AAAA-MM-DD" autocomplete="off" data-date-input required>
+        </label>
+        <label>
+          Fim
+          <input type="text" name="fim" placeholder="AAAA-MM-DD" autocomplete="off" data-date-input required>
+        </label>
+        <button type="submit">Atualizar</button>
+      </form>
+    </section>
+
+    <section id="dashboard-error" class="banner-error" hidden></section>
+
+    <section class="hero-grid">
+      <article class="card summary-card" aria-live="polite">
+        <div class="summary-header">
+          <div>
+            <p class="eyebrow">Resumo geral</p>
+            <h2>Total arrecadado</h2>
+          </div>
+          <span class="badge">Período selecionado</span>
+        </div>
+        <div class="summary-total">
+          <strong id="kpi-receita">R$ 0,00</strong>
+          <span id="kpi-periodo"></span>
+        </div>
+        <div class="summary-metrics">
+          <div class="summary-metric">
+            <p>Total de Aluguéis</p>
+            <strong id="kpi-total">0</strong>
+          </div>
+          <div class="summary-metric">
+            <p>Ticket Médio</p>
+            <strong id="kpi-ticket">R$ 0,00</strong>
+          </div>
+        </div>
+        <div class="summary-list-wrapper">
+          <p class="eyebrow">Top Gêneros</p>
+          <ul id="top-generos-list" class="summary-list">
+            <li>Carregando...</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card curve-card">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Tendência</p>
+            <h2>Curva de Aluguéis</h2>
+          </div>
+        </div>
+        <div class="chart-wrapper curve-chart">
+          <canvas id="seriesChart" height="200"></canvas>
+          <p id="series-empty" class="empty-state" hidden>Nenhuma movimentação no período selecionado.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="insights-grid">
+      <article class="card insight-card">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Estrutura</p>
+            <h2>Status dos Aluguéis</h2>
+          </div>
+        </div>
+        <div class="insight-body donut-card">
+          <div class="donut-wrapper">
+            <canvas id="statusChart"></canvas>
+          </div>
+          <ul class="status-legend">
+            <li>
+              <span class="dot dot-active"></span>
+              <div>
+                <p>Ativos</p>
+                <strong id="status-ativos">0</strong>
+              </div>
+            </li>
+            <li>
+              <span class="dot dot-complete"></span>
+              <div>
+                <p>Finalizados</p>
+                <strong id="status-finalizados">0</strong>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card insight-card">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Destaques</p>
+            <h2>Filmes mais Alugados</h2>
+          </div>
+        </div>
+        <div class="chart-wrapper bar-chart">
+          <canvas id="topFilmesChart" height="200"></canvas>
+          <p id="top-filmes-empty" class="empty-state" hidden>Nenhum dado para exibir.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div id="date-picker" class="date-picker" hidden>
+    <div class="dp-header">
+      <button type="button" class="dp-nav" data-action="prev" aria-label="Mês anterior">&#10094;</button>
+      <span id="dp-month-label">Março 2024</span>
+      <button type="button" class="dp-nav" data-action="next" aria-label="Próximo mês">&#10095;</button>
+    </div>
+    <div class="dp-weekdays">
+      <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+    </div>
+    <div id="dp-days" class="dp-days"></div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
