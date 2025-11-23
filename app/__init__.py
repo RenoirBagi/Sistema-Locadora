@@ -17,6 +17,10 @@ def create_app():
     CORS(app)
 
     with app.app_context():
+        from app.models import aluguel  # noqa: F401
+        from app.models import cliente  # noqa: F401
+        from app.models import filme  # noqa: F401
+        from app.models import historico_exportacao  # noqa: F401
         db.create_all()
 
     return app

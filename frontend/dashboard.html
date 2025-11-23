@@ -41,6 +41,7 @@
         </label>
         <button type="submit">Atualizar</button>
       </form>
+      <button type="button" class="btn-export" id="abrir-modal-exportacao">Exportar</button>
     </section>
 
     <section id="dashboard-error" class="banner-error" hidden></section>
@@ -105,15 +106,15 @@
             <li>
               <span class="dot dot-active"></span>
               <div>
-                <p>Ativos</p>
                 <strong id="status-ativos">0</strong>
+                <span>Ativos</span>
               </div>
             </li>
             <li>
               <span class="dot dot-complete"></span>
               <div>
-                <p>Finalizados</p>
                 <strong id="status-finalizados">0</strong>
+                <span>Finalizados</span>
               </div>
             </li>
           </ul>
@@ -132,6 +133,31 @@
           <p id="top-filmes-empty" class="empty-state" hidden>Nenhum dado para exibir.</p>
         </div>
       </article>
+      <article class="card insight-card history-card">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Auditoria</p>
+            <h2>Histórico de downloads</h2>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Data/Hora</th>
+                <th>Tipo</th>
+                <th>Formato</th>
+                <th>Período</th>
+                <th>Registros</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="historico-tbody">
+              <tr><td colspan="6">Carregando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
     </section>
   </main>
 
@@ -145,6 +171,44 @@
       <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
     </div>
     <div id="dp-days" class="dp-days"></div>
+  </div>
+
+  <div id="export-modal" class="modal" hidden>
+    <div class="modal-content">
+      <button class="modal-close" id="fechar-modal-exportacao" aria-label="Fechar">&times;</button>
+      <header class="modal-header">
+        <div>
+          <p class="eyebrow">Exportar relatório</p>
+          <h3>Selecione período e formato</h3>
+        </div>
+      </header>
+      <form id="form-exportacao" class="modal-form">
+        <label>
+          Tipo de relatório
+          <select name="tipo" required>
+            <option value="aluguéis">Aluguéis</option>
+            <option value="filmes">Filmes</option>
+          </select>
+        </label>
+        <label>
+          Formato
+          <select name="formato" required>
+            <option value="csv">CSV</option>
+            <option value="xlsx">XLSX</option>
+          </select>
+        </label>
+        <label>
+          Início
+          <input type="date" name="inicio" required>
+        </label>
+        <label>
+          Fim
+          <input type="date" name="fim" required>
+        </label>
+        <button type="submit" class="btn-primary" id="btn-confirmar-exportacao">Gerar relatório</button>
+        <p id="export-feedback" class="modal-feedback" hidden></p>
+      </form>
+    </div>
   </div>
 
   <script src="js/dashboard.js"></script>
