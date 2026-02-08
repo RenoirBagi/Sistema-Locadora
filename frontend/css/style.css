@@ -94,8 +94,8 @@ h1 {
 .main-nav a {
     color: #C0C8E0;
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 500;
     transition: color 0.3s ease;
 }
 
@@ -136,7 +136,8 @@ h1 {
 
 /* --- LAYOUT PRINCIPAL (para empurrar o conteúdo) --- */
 .main-content {
-    padding: 40px 2rem 0 2rem; /* Espaço para o header + padding */
+    padding: 40px 2rem 0 2rem;
+    /* Espaço para o header + padding */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -648,7 +649,8 @@ table {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-th, td {
+th,
+td {
     padding: 16px 20px;
     text-align: left;
     border-bottom: 1px solid #2A364D;
@@ -711,7 +713,8 @@ main.form-page-main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 85px); /* Altura da tela menos o header */
+    min-height: calc(100vh - 85px);
+    /* Altura da tela menos o header */
 }
 
 .form-container {

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro - YOLOOK</title>
+  <title>Cadastro de Filme - YOLOOK</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -19,7 +19,6 @@
         <a href="filmes.html">Catálogo de Filmes</a>
         <a href="novo_aluguel.html">Alugar</a>
         <a href="novo_cliente.html">Cadastrar Cliente</a>
-        <a href="novo_filme.html">Cadastrar Filme</a>
       </nav>
       <div class="search-container">
         <input type="search" placeholder="Buscar filme">
@@ -31,26 +30,25 @@
     <div class="form-container">
       <div class="form-header">
         <span>REALIZANDO</span>
-        <h1>Cadastro</h1>
+        <h1>Cadastro de Filme</h1>
       </div>
 
       <h2>Insira as informações:</h2>
 
-      <form id="form-cliente">
-        <input type="text" name="cpf_cliente" placeholder="CPF" required>
-        <input type="text" name="nome_cliente" placeholder="Nome" required>
-        <input type="number" name="idade_cliente" placeholder="Idade" required>
-        <input type="text" name="contato_cliente" placeholder="Contato" required>
-        <input type="text" name="endereco_cliente" placeholder="Endereço" required>
+      <form id="form-filme">
+        <input type="text" name="titulo" placeholder="Nome do Filme" required>
+        <input type="text" name="genero" placeholder="Genero" required>
+        <input type="number" name="ano" placeholder="Ano" required>
+        <input type="number" name="preco" placeholder="Preço" required>
 
-        <button type="submit" class="btn-primary">Cadastrar Conta</button>
+        <button type="submit" class="btn-primary">Cadastrar Filme</button>
       </form>
 
       <a href="index.html" class="link-voltar">Voltar para a lista</a>
     </div>
   </main>
 
-  <script src="js/novo_cliente.js"></script>
+  <script src="js/novo_filme.js"></script>
 </body>
 
 </html>

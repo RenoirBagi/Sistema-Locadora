@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Aluguéis - YOLOOK</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
   <header class="site-header">
     <div class="container">
       <a href="index.html" class="logo">YOLOOK</a>
       <nav class="main-nav">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="novo_cliente.html">Cadastrar</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="index.html">Ver Aluguéis</a>
+        <a href="filmes.html">Catálogo de Filmes</a>
         <a href="novo_aluguel.html">Alugar</a>
-        <a href="filmes.html">Ver Filmes</a>
+        <a href="novo_cliente.html">Cadastrar Cliente</a>
+        <a href="novo_filme.html">Cadastrar Filme</a>
       </nav>
       <div class="search-container">
         <input type="search" placeholder="Buscar filme">
@@ -28,7 +32,7 @@
     <button onclick="window.location.href='dashboard.html'">Dashboard</button>
     <button onclick="window.location.href='novo_aluguel.html'">Novo Aluguel</button>
     <button onclick="window.location.href='filmes.html'">Ver Filmes</button>
-  
+
     <table border="1">
       <thead>
         <tr>
@@ -42,10 +46,11 @@
         </tr>
       </thead>
       <tbody id="alugueis-tbody">
-        </tbody>
+      </tbody>
     </table>
   </main>
-  
+
   <script src="js/alugueis.js"></script>
 </body>
+
 </html>
