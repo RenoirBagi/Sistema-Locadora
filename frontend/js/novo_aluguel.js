@@ -3,15 +3,24 @@ const API_URL = "http://localhost:5000";
 document.getElementById("form-aluguel").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const data = {
-    "cliente_cpf": e.target.cpf_cliente.value,
-    "codigo_filme": e.target.codigo_filme.value,
-    "valor_diaria": 20.99
-  };
+  const cliente_cpf = e.target.cpf_cliente.value;
+  const codigo_filme = parseInt(e.target.codigo_filme.value);
 
-  console.log(e.target.cpf_cliente.value)
-  console.log(e.target.codigo_filme.value)
-  console.log(data)
+  // Buscar preço do filme dinamicamente
+  const responseFilmes = await fetch(`${API_URL}/filmes/`);
+  const filmes = await responseFilmes.json();
+  const filme = filmes.find(f => f.id === codigo_filme);
+
+  if (!filme) {
+    alert("Filme não encontrado!");
+    return;
+  }
+
+  const data = {
+    "cliente_cpf": cliente_cpf,
+    "codigo_filme": codigo_filme,
+    "valor_diaria": filme.preco
+  };
 
   const response = await fetch(`${API_URL}/alugueis/`, {
     method: "POST",

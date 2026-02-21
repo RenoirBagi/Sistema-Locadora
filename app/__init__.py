@@ -1,8 +1,11 @@
 from flask import Flask
 from flask_cors import CORS
+from dotenv import load_dotenv
 from app.extensions import db
 from app.config_db import init_db
 from app.routes import register_routes
+
+load_dotenv()
 
 def create_app():
     """

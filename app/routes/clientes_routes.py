@@ -11,15 +11,16 @@ def criar():
 
 @clientes_bp.route('/', methods=['GET'])
 def listar():
-    return jsonify(listar_clientes())
+    resp, status = listar_clientes()
+    return jsonify(resp), status
 
 @clientes_bp.route('/<cpf>', methods=['PUT'])
 def atualizar(cpf):
     data = request.get_json()
-    resp = atualizar_cliente(cpf, data)
-    return jsonify(resp)
+    resp, status = atualizar_cliente(cpf, data)
+    return jsonify(resp), status
 
 @clientes_bp.route('/<cpf>', methods=['DELETE'])
 def deletar(cpf):
-    resp = deletar_cliente(cpf)
-    return jsonify(resp)
+    resp, status = deletar_cliente(cpf)
+    return jsonify(resp), status

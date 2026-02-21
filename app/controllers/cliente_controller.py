@@ -21,7 +21,7 @@ def listar_clientes():
             "contato": cliente.contato,
             "endereco": cliente.endereco
         })
-    return result
+    return result, 200
 
 def atualizar_cliente(cpf, data):
     cliente = Cliente.query.get(cpf)
@@ -30,7 +30,7 @@ def atualizar_cliente(cpf, data):
     for campo, valor in data.items():
         setattr(cliente, campo, valor)
     db.session.commit()
-    return {"mensagem": "Cliente atualizado com sucesso"}
+    return {"mensagem": "Cliente atualizado com sucesso"}, 200
 
 def deletar_cliente(cpf):
     cliente = Cliente.query.get(cpf)
@@ -38,4 +38,4 @@ def deletar_cliente(cpf):
         return {"erro": "Cliente não encontrado"}, 404
     db.session.delete(cliente)
     db.session.commit()
-    return {"mensagem": "Cliente deletado com sucesso"}
+    return {"mensagem": "Cliente deletado com sucesso"}, 200

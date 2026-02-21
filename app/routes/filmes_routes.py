@@ -11,15 +11,16 @@ def criar_filme():
 
 @filmes_bp.route('/', methods=['GET'])
 def listar_filmes():
-    return jsonify(filme_controller.listar_filmes())
+    resp, status = filme_controller.listar_filmes()
+    return jsonify(resp), status
 
 @filmes_bp.route('/<int:id>', methods=['PUT'])
 def atualizar_filme(id):
     data = request.get_json()
-    resp = filme_controller.atualizar_filme(id, data)
-    return jsonify(resp)
+    resp, status = filme_controller.atualizar_filme(id, data)
+    return jsonify(resp), status
 
 @filmes_bp.route('/<int:id>', methods=['DELETE'])
 def deletar_filme(id):
-    resp = filme_controller.deletar_filme(id)
-    return jsonify(resp)
+    resp, status = filme_controller.deletar_filme(id)
+    return jsonify(resp), status

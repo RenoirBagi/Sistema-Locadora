@@ -19,7 +19,7 @@ def listar_filmes():
             "preco": filme.preco,
             "disponivel": filme.disponivel
         })
-    return result
+    return result, 200
 
 def atualizar_filme(id, data):
     filme = Filme.query.get(id)
@@ -28,7 +28,7 @@ def atualizar_filme(id, data):
     for campo, valor in data.items():
         setattr(filme, campo, valor)
     db.session.commit()
-    return {"mensagem": "Filme atualizado com sucesso"}
+    return {"mensagem": "Filme atualizado com sucesso"}, 200
 
 def deletar_filme(id):
     filme = Filme.query.get(id)
@@ -36,4 +36,4 @@ def deletar_filme(id):
         return {"erro": "Filme não encontrado"}, 404
     db.session.delete(filme)
     db.session.commit()
-    return {"mensagem": "Filme deletado com sucesso"}
+    return {"mensagem": "Filme deletado com sucesso"}, 200

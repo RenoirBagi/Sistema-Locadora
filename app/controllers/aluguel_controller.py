@@ -55,7 +55,7 @@ def listar_alugueis():
             "valor": aluguel.valor,
             "status": aluguel.status
         })
-    return result
+    return result, 200
 
 
 def atualizar_aluguel(id, data):
@@ -78,7 +78,6 @@ def atualizar_aluguel(id, data):
     #     devolucao = True
 
     if data.get("data_devolucao") and status_original:
-        aluguel.data_devolucao = datetime.fromisoformat(data["data_devolucao"].replace("Z", "+00:00"))
         aluguel.status = False
         aluguel.data_devolucao = datetime.now()
         aluguel.tempo_aluguel = (aluguel.data_devolucao - aluguel.data_aluguel).days or 1
@@ -92,7 +91,7 @@ def atualizar_aluguel(id, data):
             aluguel.status = bool(status_enviado)
 
     db.session.commit()
-    return {"mensagem": "Aluguel atualizado com sucesso"}
+    return {"mensagem": "Aluguel atualizado com sucesso"}, 200
 
 
 def deletar_aluguel(id):
@@ -107,7 +106,7 @@ def deletar_aluguel(id):
 
     db.session.delete(aluguel)
     db.session.commit()
-    return {"mensagem": "Aluguel deletado com sucesso"}
+    return {"mensagem": "Aluguel deletado com sucesso"}, 200
 
 
 def listar_alugueis_por_cliente(cpf_cliente):
@@ -125,4 +124,4 @@ def listar_alugueis_por_cliente(cpf_cliente):
             "valor": aluguel.valor,
             "status": aluguel.status
         })
-    return jsonify(result)
+    return result, 200
