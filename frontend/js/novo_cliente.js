@@ -9,7 +9,6 @@ document.getElementById("form-cliente").addEventListener("submit", async (e) => 
     "endereco": e.target.endereco_cliente.value
   };
 
-  console.log(data);
 
   const response = await fetch(`${API_URL}/clientes/`, {
     method: "POST",

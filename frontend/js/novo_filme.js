@@ -8,7 +8,6 @@ document.getElementById("form-filme").addEventListener("submit", async (e) => {
     "preco": e.target.preco.value,
   };
 
-  console.log(data);
 
   const response = await fetch(`${API_URL}/filmes/`, {
     method: "POST",
