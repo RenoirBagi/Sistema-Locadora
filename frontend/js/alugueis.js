@@ -17,7 +17,7 @@ async function carregarAlugueis() {
       <td>${a.data_devolucao ? a.data_devolucao.split('T')[0] : ""}</td>
       <td>${a.valor || ""}</td>
       <td>
-        <button onclick="devolverAluguel(${a.id})">Devolver</button>
+        <button ${a.status ? "" : "disabled style='opacity:0.4; pointer-events:none;'"} onclick="devolverAluguel(${a.id})">Devolver</button>
         <button onclick="deletarAluguel(${a.id})">Deletar</button>
       </td>
     `;

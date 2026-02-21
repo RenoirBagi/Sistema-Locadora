@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Aluguéis - YOLOOK</title>
+  <title>Lista de Filmes - YOLOOK</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -26,29 +26,26 @@
   </header>
 
   <main class="main-content">
-    <h1>Lista de Aluguéis</h1>
-    <button onclick="window.location.href='dashboard.html'">Dashboard</button>
-    <button onclick="window.location.href='novo_aluguel.html'">Novo Aluguel</button>
-    <button onclick="window.location.href='filmes.html'">Ver Filmes</button>
+    <h1>Lista de Filmes</h1>
+    <button onclick="window.location.href='index.html'">Voltar</button>
+    <button onclick="window.location.href='novo_filme.html'">Cadastrar Filme</button>
 
-    <table border="1">
+    <table>
       <thead>
         <tr>
           <th>ID</th>
-          <th>CPF Cliente</th>
-          <th>Código Filme</th>
-          <th>Data Aluguel</th>
-          <th>Data Devolução</th>
-          <th>Valor (R$)</th>
+          <th>Título</th>
+          <th>Gênero</th>
+          <th>Ano</th>
+          <th>Preço (R$)</th>
           <th>Ações</th>
         </tr>
       </thead>
-      <tbody id="alugueis-tbody">
-      </tbody>
+      <tbody id="filmes-tbody"></tbody>
     </table>
   </main>
 
-  <script src="js/alugueis.js"></script>
+  <script src="js/filmes.js"></script>
 </body>
 
 </html>

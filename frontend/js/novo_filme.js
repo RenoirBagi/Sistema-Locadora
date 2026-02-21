@@ -4,10 +4,10 @@ document.getElementById("form-filme").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const data = {
-    "titulo": e.target.titulo_filme.value,
-    "genero": e.target.genero_filme.value,
-    "ano": e.target.ano_filme.value,
-    "preco": parseFloat(e.target.preco_filme.value),
+    "titulo": e.target.titulo.value,
+    "genero": e.target.genero.value,
+    "ano": e.target.ano.value,
+    "preco": e.target.preco.value,
   };
 
   console.log(data);

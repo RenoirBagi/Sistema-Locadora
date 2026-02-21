@@ -2,59 +2,51 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - YOLOOK</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Filme - YOLOOK</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">YOLOOK</a>
+      <nav class="main-nav">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="index.html">Aluguéis</a>
+        <a href="filmes.html">Filmes</a>
+        <a href="novo_cliente.html">Clientes</a>
+      </nav>
+      <div class="search-container">
+        <input type="search" placeholder="Buscar filme">
+      </div>
+    </div>
+  </header>
 
-    <header class="site-header">
-        <div class="container">
-            <a href="index.html" class="logo">YOLOOK</a>
-            <nav class="main-nav">
-                <a href="novo_cliente.html">Cadastrar</a>
-                <a href="novo_aluguel.html">Alugar</a>
-                <a href="novo_filme.html">Adicionar Filme</a>
-            </nav>
-            <div class="search-container">
-                <input type="search" placeholder="Buscar filme">
-            </div>
-        </div>
-    </header>
+  <main class="form-page-main">
+    <div class="form-container">
+      <div class="form-header">
+        <span>REALIZANDO</span>
+        <h1>Cadastro de Filme</h1>
+      </div>
 
-    <main class="form-page-main">
-        <div class="form-container">
-            <div class="form-header">
-                <span>REALIZANDO</span>
-                <h1>Cadastro de Filme</h1>
-            </div>
+      <h2>Insira as informações:</h2>
 
-            <h2>Insira as informações:</h2>
+      <form id="form-filme">
+        <input type="text" name="titulo" placeholder="Nome do Filme" required>
+        <input type="text" name="genero" placeholder="Genero" required>
+        <input type="number" name="ano" placeholder="Ano" required>
+        <input type="number" name="preco" placeholder="Preço" required>
 
-            <form id="form-filme">
-                <input type="text" name="titulo_filme" placeholder="Titulo" required>
-                <input type="text" name="genero_filme" id="genero_filme" placeholder="Gênero" list="generos" required>
-                <datalist id="generos">
-                    <option value="Ação">
-                    <option value="Comédia">
-                    <option value="Drama">
-                    <option value="Terror">
-                    <option value="Romance">
-                    <option value="Ficção científica">
-                </datalist>
-                <input type="number" name="ano_filme" placeholder="Ano de lançamento" required>
-                <input type="text" name="preco_filme" placeholder="Preço" required>
+        <button type="submit" class="btn-primary">Cadastrar Filme</button>
+      </form>
 
-                <button type="submit" class="btn-primary">Adicionar Filme</button>
-            </form>
+      <a href="filmes.html" class="link-voltar">Voltar para a lista</a>
+    </div>
+  </main>
 
-            <a href="index.html" class="link-voltar">Voltar para a lista</a>
-        </div>
-    </main>
-
-    <script src="js/novo_filme.js"></script>
+  <script src="js/novo_filme.js"></script>
 </body>
 
 </html>
