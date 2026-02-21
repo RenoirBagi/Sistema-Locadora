@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:5000";
-
 document.getElementById("form-filme").addEventListener("submit", async (e) => {
   e.preventDefault();
 

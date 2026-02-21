@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:5000";
-
 const formFiltros = document.getElementById("filtros-dashboard");
 const inicioInput = formFiltros?.elements.namedItem("inicio");
 const fimInput = formFiltros?.elements.namedItem("fim");

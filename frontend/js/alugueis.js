@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:5000";
-
 async function carregarAlugueis() {
   const response = await fetch(`${API_URL}/alugueis/`);
   const alugueis = await response.json();

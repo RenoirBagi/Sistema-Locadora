@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:5000";
-
 async function carregarFilmes() {
   const response = await fetch(`${API_URL}/filmes/`);
   const filmes = await response.json();
