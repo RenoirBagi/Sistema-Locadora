@@ -15,15 +15,12 @@ def create_app():
 
     init_db(app)
 
-    register_routes(app)
-
     CORS(app)
 
+    register_routes(app)
+
     with app.app_context():
-        from app.models import aluguel  # noqa: F401
-        from app.models import cliente  # noqa: F401
-        from app.models import filme  # noqa: F401
-        from app.models import historico_exportacao  # noqa: F401
+        from app import models  # noqa: F401
         db.create_all()
 
     return app
