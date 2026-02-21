@@ -10,3 +10,12 @@ class Cliente(db.Model):
     endereco = db.Column(db.String(100), nullable=False)
 
     alugueis = db.relationship("Aluguel", back_populates="cliente")
+
+    def to_dict(self):
+        return {
+            "cpf": self.cpf,
+            "nome": self.nome,
+            "idade": self.idade,
+            "contato": self.contato,
+            "endereco": self.endereco
+        }

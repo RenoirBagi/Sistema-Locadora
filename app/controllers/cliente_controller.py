@@ -12,16 +12,7 @@ def criar_cliente(data):
 
 def listar_clientes():
     clientes = Cliente.query.all()
-    result = []
-    for cliente in clientes:
-        result.append({
-            "cpf": cliente.cpf,
-            "nome": cliente.nome,
-            "idade": cliente.idade,
-            "contato": cliente.contato,
-            "endereco": cliente.endereco
-        })
-    return result, 200
+    return [c.to_dict() for c in clientes], 200
 
 def atualizar_cliente(cpf, data):
     cliente = Cliente.query.get(cpf)

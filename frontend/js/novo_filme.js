@@ -22,6 +22,6 @@ document.getElementById("form-filme").addEventListener("submit", async (e) => {
   alert(result.mensagem || result.erro);
 
   if (response.ok) {
-    window.location.href = "index.html";
+    window.location.href = "filmes.html";
   }
 });

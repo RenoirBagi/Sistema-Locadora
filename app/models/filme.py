@@ -11,3 +11,13 @@ class Filme(db.Model):
     disponivel = db.Column(db.Boolean, default=True)
 
     alugueis = db.relationship('Aluguel', back_populates='filme')
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "titulo": self.titulo,
+            "genero": self.genero,
+            "ano": self.ano,
+            "preco": self.preco,
+            "disponivel": self.disponivel
+        }

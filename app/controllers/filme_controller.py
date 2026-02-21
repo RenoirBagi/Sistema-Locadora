@@ -9,17 +9,7 @@ def criar_filme(data):
 
 def listar_filmes():
     filmes = Filme.query.all()
-    result = []
-    for filme in filmes:
-        result.append({
-            "id": filme.id,
-            "titulo": filme.titulo,
-            "genero": filme.genero,
-            "ano": filme.ano,
-            "preco": filme.preco,
-            "disponivel": filme.disponivel
-        })
-    return result, 200
+    return [f.to_dict() for f in filmes], 200
 
 def atualizar_filme(id, data):
     filme = Filme.query.get(id)

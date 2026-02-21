@@ -21,3 +21,17 @@ class Aluguel(db.Model):
 
     cliente = relationship("Cliente", back_populates="alugueis")
     filme = relationship("Filme", back_populates="alugueis")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "cpf_cliente": self.cliente_cpf,
+            "codigo_filme": self.filme_id,
+            "data_aluguel": self.data_aluguel.isoformat() if self.data_aluguel else None,
+            "data_devolucao": self.data_devolucao.isoformat() if self.data_devolucao else None,
+            "valor": self.valor,
+            "status": self.status
+            # Opcional: incluir nomes para facilitar no frontend sem fetch extra
+            # "nome_cliente": self.cliente.nome if self.cliente else None,
+            # "titulo_filme": self.filme.titulo if self.filme else None
+        }

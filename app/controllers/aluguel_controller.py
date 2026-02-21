@@ -44,18 +44,7 @@ def criar_aluguel(data):
 
 def listar_alugueis():
     alugueis = Aluguel.query.all()
-    result = []
-    for aluguel in alugueis:
-        result.append({
-            "id": aluguel.id,
-            "cpf_cliente": aluguel.cliente_cpf,
-            "codigo_filme": aluguel.filme_id,
-            "data_aluguel": aluguel.data_aluguel.isoformat() if aluguel.data_aluguel else None,
-            "data_devolucao": aluguel.data_devolucao.isoformat() if aluguel.data_devolucao else None,
-            "valor": aluguel.valor,
-            "status": aluguel.status
-        })
-    return result, 200
+    return [a.to_dict() for a in alugueis], 200
 
 
 def atualizar_aluguel(id, data):
@@ -114,14 +103,4 @@ def listar_alugueis_por_cliente(cpf_cliente):
     if not alugueis:
         return {"erro": "Nenhum aluguel encontrado para este cliente"}, 404
 
-    result = []
-    for aluguel in alugueis:
-        result.append({
-            "id": aluguel.id,
-            "codigo_filme": aluguel.filme_id,
-            "data_aluguel": aluguel.data_aluguel.isoformat() if aluguel.data_aluguel else None,
-            "data_devolucao": aluguel.data_devolucao.isoformat() if aluguel.data_devolucao else None,
-            "valor": aluguel.valor,
-            "status": aluguel.status
-        })
-    return result, 200
+    return [a.to_dict() for a in alugueis], 200

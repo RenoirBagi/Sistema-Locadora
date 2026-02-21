@@ -1,25 +1,11 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from sqlalchemy import func, case
 
 from app.extensions import db
 from app.models.aluguel import Aluguel
 from app.models.filme import Filme
-
-DATE_FORMAT = "%Y-%m-%d"
-
-
-def _date_range(inicio_str=None, fim_str=None):
-    hoje = datetime.now().date()
-    fim = datetime.strptime(fim_str, DATE_FORMAT).date() if fim_str else hoje
-    inicio = datetime.strptime(inicio_str, DATE_FORMAT).date() if inicio_str else fim - timedelta(days=29)
-
-    if inicio > fim:
-        inicio, fim = fim, inicio
-
-    inicio_dt = datetime.combine(inicio, datetime.min.time())
-    fim_dt = datetime.combine(fim, datetime.max.time())
-    return inicio_dt, fim_dt
+from app.utils import get_date_range
 
 
 def _receita_expr():
@@ -27,7 +13,7 @@ def _receita_expr():
 
 
 def obter_resumo(inicio_str=None, fim_str=None):
-    inicio, fim = _date_range(inicio_str, fim_str)
+    inicio, fim = get_date_range(inicio_str, fim_str)
 
     receita_sum = func.sum(_receita_expr())
     total = db.session.query(func.count(Aluguel.id)).filter(
@@ -52,7 +38,7 @@ def obter_resumo(inicio_str=None, fim_str=None):
 
 
 def obter_series(inicio_str=None, fim_str=None):
-    inicio, fim = _date_range(inicio_str, fim_str)
+    inicio, fim = get_date_range(inicio_str, fim_str)
     receita_sum = func.sum(_receita_expr())
     dia_expr = func.date(Aluguel.data_aluguel)
 
@@ -79,7 +65,7 @@ def obter_series(inicio_str=None, fim_str=None):
 
 
 def obter_status(inicio_str=None, fim_str=None):
-    inicio, fim = _date_range(inicio_str, fim_str)
+    inicio, fim = get_date_range(inicio_str, fim_str)
 
     ativos_case = func.sum(case((Aluguel.status.is_(True), 1), else_=0))
     finalizados_case = func.sum(case((Aluguel.status.is_(False), 1), else_=0))
@@ -108,7 +94,7 @@ def obter_status(inicio_str=None, fim_str=None):
 
 
 def obter_top_filmes(inicio_str=None, fim_str=None, limite=5):
-    inicio, fim = _date_range(inicio_str, fim_str)
+    inicio, fim = get_date_range(inicio_str, fim_str)
     limite = max(1, min(int(limite or 5), 10))
 
     rows = (
@@ -134,7 +120,7 @@ def obter_top_filmes(inicio_str=None, fim_str=None, limite=5):
 
 
 def obter_top_generos(inicio_str=None, fim_str=None, limite=5):
-    inicio, fim = _date_range(inicio_str, fim_str)
+    inicio, fim = get_date_range(inicio_str, fim_str)
     limite = max(1, min(int(limite or 5), 10))
 
     rows = (
