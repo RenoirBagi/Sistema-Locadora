@@ -17,9 +17,10 @@ document.getElementById("form-cliente").addEventListener("submit", async (e) => 
   });
 
   const result = await response.json();
-  alert(result.mensagem || result.erro);
-
   if (response.ok) {
-    window.location.href = "index.html";
+    toast.success(result.mensagem || "Cliente cadastrado com sucesso!");
+    setTimeout(() => window.location.href = "index.html", 1500);
+  } else {
+    toast.error(result.erro || "Erro ao cadastrar cliente.");
   }
 });

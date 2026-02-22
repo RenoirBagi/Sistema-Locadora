@@ -47,10 +47,11 @@ async function alugarFilme(filmeId, preco) {
   });
 
   const result = await response.json();
-  alert(result.mensagem || result.erro);
-
   if (response.ok) {
+    toast.success(result.mensagem || "Aluguel realizado com sucesso!");
     carregarFilmes();
+  } else {
+    toast.error(result.erro || "Erro ao realizar aluguel.");
   }
 }
 

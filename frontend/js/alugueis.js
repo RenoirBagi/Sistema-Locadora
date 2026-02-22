@@ -29,8 +29,12 @@ async function deletarAluguel(id) {
       method: "DELETE"
     });
     const result = await response.json();
-    alert(result.mensagem || result.erro);
-    carregarAlugueis();
+    if (response.ok) {
+      toast.success(result.mensagem || "Aluguel deletado com sucesso!");
+      carregarAlugueis();
+    } else {
+      toast.error(result.erro || "Erro ao deletar aluguel.");
+    }
   }
 }
 
@@ -42,8 +46,12 @@ async function devolverAluguel(id) {
     body: JSON.stringify(data)
   });
   const result = await response.json();
-  alert(result.mensagem || result.erro);
-  carregarAlugueis();
+  if (response.ok) {
+    toast.success(result.mensagem || "Devolução realizada com sucesso!");
+    carregarAlugueis();
+  } else {
+    toast.error(result.erro || "Erro ao registrar devolução.");
+  }
 }
 
 window.onload = carregarAlugueis;

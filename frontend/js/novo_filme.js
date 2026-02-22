@@ -16,9 +16,10 @@ document.getElementById("form-filme").addEventListener("submit", async (e) => {
   });
 
   const result = await response.json();
-  alert(result.mensagem || result.erro);
-
   if (response.ok) {
-    window.location.href = "filmes.html";
+    toast.success(result.mensagem || "Filme cadastrado com sucesso!");
+    setTimeout(() => window.location.href = "filmes.html", 1500);
+  } else {
+    toast.error(result.erro || "Erro ao cadastrar filme.");
   }
 });
