@@ -24,7 +24,11 @@ async function carregarAlugueis() {
 }
 
 async function deletarAluguel(id) {
-  if (confirm("Deseja deletar este aluguel?")) {
+  const confirmado = await dialog.danger(`Deseja realmente deletar o aluguel #${id}? Esta ação não pode ser desfeita.`, {
+    title: "Deletar Aluguel"
+  });
+
+  if (confirmado) {
     const response = await fetch(`${API_URL}/alugueis/${id}`, {
       method: "DELETE"
     });
