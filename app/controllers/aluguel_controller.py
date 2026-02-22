@@ -19,7 +19,7 @@ def criar_aluguel(data):
     filme = Filme.query.filter_by(id=codigo_filme).first()
     if not filme:
         return {"erro": f"Filme com ID {codigo_filme} não encontrado"}, 404
-    if filme.disponivel != 1:
+    if not filme.disponivel:
         return {"erro": f"Filme '{filme.titulo}' não está disponível"}, 400
 
     # Evitar duplicidade de aluguel ativo
