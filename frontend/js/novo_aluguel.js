@@ -1,24 +1,19 @@
-
 document.getElementById("form-aluguel").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const cliente_cpf = e.target.cpf_cliente.value;
   const codigo_filme = parseInt(e.target.codigo_filme.value);
+  const data_devolucao_prevista = e.target.data_devolucao_prevista.value;
 
-  // Buscar preço do filme dinamicamente
-  const responseFilmes = await fetch(`${API_URL}/filmes/`);
-  const filmes = await responseFilmes.json();
-  const filme = filmes.find(f => f.id === codigo_filme);
-
-  if (!filme) {
-    alert("Filme não encontrado!");
+  if (!data_devolucao_prevista) {
+    toast.error("Informe a data de devolução prevista.");
     return;
   }
 
   const data = {
     "cliente_cpf": cliente_cpf,
     "codigo_filme": codigo_filme,
-    "valor_diaria": filme.preco
+    "data_devolucao_prevista": data_devolucao_prevista
   };
 
   const response = await fetch(`${API_URL}/alugueis/`, {

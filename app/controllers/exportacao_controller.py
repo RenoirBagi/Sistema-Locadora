@@ -17,6 +17,7 @@ def _dados_alugueis(inicio, fim):
         db.session.query(
             Aluguel.id.label('id_aluguel'),
             Aluguel.data_aluguel,
+            Aluguel.data_devolucao_prevista,
             Aluguel.data_devolucao,
             Aluguel.status,
             Cliente.cpf.label('cliente_cpf'),
@@ -38,7 +39,8 @@ def _dados_alugueis(inicio, fim):
         dados.append({
             'ID Aluguel': row.id_aluguel,
             'Data Aluguel': row.data_aluguel.strftime('%d/%m/%Y') if row.data_aluguel else '',
-            'Data Devolução Prevista': row.data_devolucao.strftime('%d/%m/%Y') if row.data_devolucao else '',
+            'Data Devolução Prevista': row.data_devolucao_prevista.strftime('%d/%m/%Y') if row.data_devolucao_prevista else '',
+            'Data Devolução Real': row.data_devolucao.strftime('%d/%m/%Y') if row.data_devolucao else '',
             'Status': 'Ativo' if row.status else 'Finalizado',
             'CPF Cliente': row.cliente_cpf,
             'Nome Cliente': row.cliente_nome,

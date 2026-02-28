@@ -23,21 +23,24 @@ async function carregarFilmes() {
       <td>${f.ano || ""}</td>
       <td>${typeof f.preco === "number" ? f.preco.toFixed(2) : (f.preco || "")}</td>
       <td>
-        <button class="btn-acao btn-devolver" onclick="alugarFilme(${f.id}, ${f.preco})">Alugar</button>
+        <button class="btn-acao btn-devolver" onclick="alugarFilme(${f.id})">Alugar</button>
       </td>
     `;
     tbody.appendChild(tr);
   });
 }
 
-async function alugarFilme(filmeId, preco) {
+async function alugarFilme(filmeId) {
   const cpf = prompt("Informe o CPF do cliente:");
   if (!cpf) return;
+
+  const dataDevolucao = prompt("Data de devolução prevista (AAAA-MM-DD):");
+  if (!dataDevolucao) return;
 
   const data = {
     cliente_cpf: cpf,
     codigo_filme: filmeId,
-    valor_diaria: preco
+    data_devolucao_prevista: dataDevolucao
   };
 
   const response = await fetch(`${API_URL}/alugueis/`, {
