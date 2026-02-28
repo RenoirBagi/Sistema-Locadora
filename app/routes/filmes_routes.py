@@ -11,7 +11,8 @@ def criar_filme():
 
 @filmes_bp.route('/', methods=['GET'])
 def listar_filmes():
-    resp, status = filme_controller.listar_filmes()
+    busca = request.args.get('busca', type=str)
+    resp, status = filme_controller.listar_filmes(busca)
     return jsonify(resp), status
 
 @filmes_bp.route('/<int:id>', methods=['PUT'])

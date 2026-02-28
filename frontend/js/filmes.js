@@ -1,5 +1,9 @@
 async function carregarFilmes() {
-  const response = await fetch(`${API_URL}/filmes/`);
+  const urlParams = new URLSearchParams(window.location.search);
+  const busca = urlParams.get('busca');
+  const url = busca ? `${API_URL}/filmes/?busca=${encodeURIComponent(busca)}` : `${API_URL}/filmes/`;
+
+  const response = await fetch(url);
   const filmes = await response.json();
 
   const tbody = document.getElementById("filmes-tbody");

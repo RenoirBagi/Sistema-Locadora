@@ -7,8 +7,11 @@ def criar_filme(data):
     db.session.commit()
     return {"mensagem": "Filme criado com sucesso", "id": filme.id}, 201
 
-def listar_filmes():
-    filmes = Filme.query.all()
+def listar_filmes(busca=None):
+    query = Filme.query
+    if busca:
+        query = query.filter(Filme.titulo.ilike(f"%{busca}%"))
+    filmes = query.all()
     return [f.to_dict() for f in filmes], 200
 
 def atualizar_filme(id, data):
