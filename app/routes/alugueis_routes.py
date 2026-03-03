@@ -11,19 +11,21 @@ def criar_aluguel():
 
 @alugueis_bp.route('/', methods=['GET'])
 def listar_alugueis():
-    return jsonify(aluguel_controller.listar_alugueis())
+    resp, status = aluguel_controller.listar_alugueis()
+    return jsonify(resp), status
 
 @alugueis_bp.route('/<int:id>', methods=['PUT'])
 def atualizar_aluguel(id):
     data = request.get_json()
-    resp = aluguel_controller.atualizar_aluguel(id, data)
-    return jsonify(resp)
+    resp, status = aluguel_controller.atualizar_aluguel(id, data)
+    return jsonify(resp), status
 
 @alugueis_bp.route('/<int:id>', methods=['DELETE'])
 def deletar_aluguel(id):
-    resp = aluguel_controller.deletar_aluguel(id)
-    return jsonify(resp)
+    resp, status = aluguel_controller.deletar_aluguel(id)
+    return jsonify(resp), status
 
 @alugueis_bp.route('/cliente/<cpf>', methods=['GET'])
 def listar_por_cliente(cpf):
-    return aluguel_controller.listar_alugueis_por_cliente(cpf)
+    resp, status = aluguel_controller.listar_alugueis_por_cliente(cpf)
+    return jsonify(resp), status

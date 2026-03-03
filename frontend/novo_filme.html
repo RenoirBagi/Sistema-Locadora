@@ -5,20 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro de Filme - YOLOOK</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
   <header class="site-header">
     <div class="container">
       <a href="index.html" class="logo">YOLOOK</a>
       <nav class="main-nav">
         <a href="dashboard.html" class="active">Dashboard</a>
-        <a href="index.html">Ver Aluguéis</a>
-        <a href="filmes.html">Catálogo de Filmes</a>
-        <a href="novo_aluguel.html">Alugar</a>
-        <a href="novo_cliente.html">Cadastrar Cliente</a>
+        <a href="index.html">Aluguéis</a>
+        <a href="filmes.html">Filmes</a>
+        <a href="novo_cliente.html">Clientes</a>
       </nav>
       <div class="search-container">
         <input type="search" placeholder="Buscar filme">
@@ -39,16 +38,20 @@
         <input type="text" name="titulo" placeholder="Nome do Filme" required>
         <input type="text" name="genero" placeholder="Genero" required>
         <input type="number" name="ano" placeholder="Ano" required>
-        <input type="number" name="preco" placeholder="Preço" required>
+        <input type="number" name="preco" placeholder="Preço" step="0.01" required>
 
         <button type="submit" class="btn-primary">Cadastrar Filme</button>
       </form>
 
-      <a href="index.html" class="link-voltar">Voltar para a lista</a>
+      <a href="filmes.html" class="link-voltar">Voltar para a lista</a>
     </div>
   </main>
 
+  <script src="js/dialog.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/config.js"></script>
   <script src="js/novo_filme.js"></script>
+  <script src="js/search.js"></script>
 </body>
 
 </html>

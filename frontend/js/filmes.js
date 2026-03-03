@@ -1,7 +1,9 @@
-const API_URL = "http://localhost:5000";
-
 async function carregarFilmes() {
-  const response = await fetch(`${API_URL}/filmes/`);
+  const urlParams = new URLSearchParams(window.location.search);
+  const busca = urlParams.get('busca');
+  const url = busca ? `${API_URL}/filmes/?busca=${encodeURIComponent(busca)}` : `${API_URL}/filmes/`;
+
+  const response = await fetch(url);
   const filmes = await response.json();
 
   const tbody = document.getElementById("filmes-tbody");
@@ -36,10 +38,13 @@ async function alugarFilme(filmeId) {
   const cpf = prompt("Informe o CPF do cliente:");
   if (!cpf) return;
 
+  const dataDevolucao = prompt("Data de devolução prevista (AAAA-MM-DD):");
+  if (!dataDevolucao) return;
+
   const data = {
     cliente_cpf: cpf,
     codigo_filme: filmeId,
-    valor_diaria: 20.99
+    data_devolucao_prevista: dataDevolucao
   };
 
   const response = await fetch(`${API_URL}/alugueis/`, {
@@ -49,10 +54,11 @@ async function alugarFilme(filmeId) {
   });
 
   const result = await response.json();
-  alert(result.mensagem || result.erro);
-
   if (response.ok) {
+    toast.success(result.mensagem || "Aluguel realizado com sucesso!");
     carregarFilmes();
+  } else {
+    toast.error(result.erro || "Erro ao realizar aluguel.");
   }
 }
 

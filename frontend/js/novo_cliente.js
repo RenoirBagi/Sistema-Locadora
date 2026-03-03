@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:5000";
-
 document.getElementById("form-cliente").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -11,7 +9,6 @@ document.getElementById("form-cliente").addEventListener("submit", async (e) => 
     "endereco": e.target.endereco_cliente.value
   };
 
-  console.log(data);
 
   const response = await fetch(`${API_URL}/clientes/`, {
     method: "POST",
@@ -20,9 +17,10 @@ document.getElementById("form-cliente").addEventListener("submit", async (e) => 
   });
 
   const result = await response.json();
-  alert(result.mensagem || result.erro);
-
   if (response.ok) {
-    window.location.href = "index.html";
+    toast.success(result.mensagem || "Cliente cadastrado com sucesso!");
+    setTimeout(() => window.location.href = "index.html", 1500);
+  } else {
+    toast.error(result.erro || "Erro ao cadastrar cliente.");
   }
 });

@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:5000";
-
 document.getElementById("form-filme").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -10,7 +8,6 @@ document.getElementById("form-filme").addEventListener("submit", async (e) => {
     "preco": e.target.preco.value,
   };
 
-  console.log(data);
 
   const response = await fetch(`${API_URL}/filmes/`, {
     method: "POST",
@@ -19,9 +16,10 @@ document.getElementById("form-filme").addEventListener("submit", async (e) => {
   });
 
   const result = await response.json();
-  alert(result.mensagem || result.erro);
-
   if (response.ok) {
-    window.location.href = "index.html";
+    toast.success(result.mensagem || "Filme cadastrado com sucesso!");
+    setTimeout(() => window.location.href = "filmes.html", 1500);
+  } else {
+    toast.error(result.erro || "Erro ao cadastrar filme.");
   }
 });

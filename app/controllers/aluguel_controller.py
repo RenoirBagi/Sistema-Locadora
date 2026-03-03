@@ -8,7 +8,20 @@ from datetime import datetime
 def criar_aluguel(data):
     cpf_cliente = data.get("cliente_cpf")
     codigo_filme = data.get("codigo_filme")
-    valor_diaria = data.get("valor_diaria")
+    data_devolucao_str = data.get("data_devolucao_prevista")
+
+    if not data_devolucao_str:
+        return {"erro": "A data de devolução prevista é obrigatória"}, 400
+
+    try:
+        data_devolucao_prevista = datetime.fromisoformat(data_devolucao_str)
+    except (ValueError, TypeError):
+        return {"erro": "Data de devolução inválida. Use o formato AAAA-MM-DD"}, 400
+
+    data_aluguel = datetime.now()
+
+    if data_devolucao_prevista.date() <= data_aluguel.date():
+        return {"erro": "A data de devolução deve ser posterior à data atual"}, 400
 
     # Validar cliente
     cliente = Cliente.query.filter_by(cpf=cpf_cliente).first()
@@ -19,7 +32,7 @@ def criar_aluguel(data):
     filme = Filme.query.filter_by(id=codigo_filme).first()
     if not filme:
         return {"erro": f"Filme com ID {codigo_filme} não encontrado"}, 404
-    if filme.disponivel != 1:
+    if not filme.disponivel:
         return {"erro": f"Filme '{filme.titulo}' não está disponível"}, 400
 
     # Evitar duplicidade de aluguel ativo
@@ -27,12 +40,20 @@ def criar_aluguel(data):
     if aluguel_existente:
         return {"erro": "Este cliente já possui este filme alugado"}, 400
 
+    # Calcular período e valor
+    tempo_aluguel = (data_devolucao_prevista.date() - data_aluguel.date()).days or 1
+    valor_diaria = filme.preco
+    valor_total = tempo_aluguel * valor_diaria
+
     # Criar aluguel
     aluguel = Aluguel(
         cliente_cpf=cpf_cliente,
         filme_id=codigo_filme,
         valor_diaria=valor_diaria,
-        data_aluguel=datetime.now(),
+        data_aluguel=data_aluguel,
+        data_devolucao_prevista=data_devolucao_prevista,
+        tempo_aluguel=tempo_aluguel,
+        valor=valor_total,
         status=True
     )
     filme.disponivel = False
@@ -44,55 +65,27 @@ def criar_aluguel(data):
 
 def listar_alugueis():
     alugueis = Aluguel.query.all()
-    result = []
-    for aluguel in alugueis:
-        result.append({
-            "id": aluguel.id,
-            "cpf_cliente": aluguel.cliente_cpf,
-            "codigo_filme": aluguel.filme_id,
-            "data_aluguel": aluguel.data_aluguel.isoformat() if aluguel.data_aluguel else None,
-            "data_devolucao": aluguel.data_devolucao.isoformat() if aluguel.data_devolucao else None,
-            "valor": aluguel.valor,
-            "status": aluguel.status
-        })
-    return result
+    return [a.to_dict() for a in alugueis], 200
 
 
 def atualizar_aluguel(id, data):
     aluguel = Aluguel.query.get(id)
     if not aluguel:
         return {"erro": "Aluguel não encontrado"}, 404
-    
-    status_original = aluguel.status
 
-    for campo, valor in data.items():
-        if campo not in ['status', 'data_devolucao']:
-            setattr(aluguel, campo, valor)
-    
-    # if "data_devolucao" in data and data["data_devolucao"]:
-    #     aluguel.data_devolucao = datetime.fromisoformat(data["data_devolucao"].replace("Z", "+00:00"))
+    if not aluguel.status:
+        return {"erro": "Este aluguel já foi finalizado"}, 400
 
-    # status_enviado = data.get("status")
-    # devolucao = False
-    # if status_enviado in [False, 0, "0", "false", "False"] and status_original:
-    #     devolucao = True
-
-    if data.get("data_devolucao") and status_original:
-        aluguel.data_devolucao = datetime.fromisoformat(data["data_devolucao"].replace("Z", "+00:00"))
+    if data.get("devolver"):
         aluguel.status = False
         aluguel.data_devolucao = datetime.now()
-        aluguel.tempo_aluguel = (aluguel.data_devolucao - aluguel.data_aluguel).days or 1
-        aluguel.valor = aluguel.tempo_aluguel * aluguel.valor_diaria
 
         filme = Filme.query.get(aluguel.filme_id)
-        filme.disponivel = True
-    else:
-        status_enviado = data.get("status")
-        if status_enviado is not None:
-            aluguel.status = bool(status_enviado)
+        if filme:
+            filme.disponivel = True
 
     db.session.commit()
-    return {"mensagem": "Aluguel atualizado com sucesso"}
+    return {"mensagem": "Aluguel atualizado com sucesso"}, 200
 
 
 def deletar_aluguel(id):
@@ -107,7 +100,7 @@ def deletar_aluguel(id):
 
     db.session.delete(aluguel)
     db.session.commit()
-    return {"mensagem": "Aluguel deletado com sucesso"}
+    return {"mensagem": "Aluguel deletado com sucesso"}, 200
 
 
 def listar_alugueis_por_cliente(cpf_cliente):
@@ -115,14 +108,4 @@ def listar_alugueis_por_cliente(cpf_cliente):
     if not alugueis:
         return {"erro": "Nenhum aluguel encontrado para este cliente"}, 404
 
-    result = []
-    for aluguel in alugueis:
-        result.append({
-            "id": aluguel.id,
-            "codigo_filme": aluguel.filme_id,
-            "data_aluguel": aluguel.data_aluguel.isoformat() if aluguel.data_aluguel else None,
-            "data_devolucao": aluguel.data_devolucao.isoformat() if aluguel.data_devolucao else None,
-            "valor": aluguel.valor,
-            "status": aluguel.status
-        })
-    return jsonify(result)
+    return [a.to_dict() for a in alugueis], 200

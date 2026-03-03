@@ -1,3 +1,4 @@
+import os
 import pymysql
 from app.extensions import db
 
@@ -6,11 +7,11 @@ def init_db(app):
     Inicializa a base de dados MySQL com o app Flask e o SQLAlchemy.
     Cria o banco automaticamente se não existir.
     """
-    db_user = 'root'
-    db_password = 'root'
-    db_name = 'sistema_locadora'
-    db_host = 'localhost'
-    db_port = 3306
+    db_user = os.getenv('DB_USER', 'root')
+    db_password = os.getenv('DB_PASSWORD', 'root')
+    db_name = os.getenv('DB_NAME', 'sistema_locadora')
+    db_host = os.getenv('DB_HOST', 'localhost')
+    db_port = int(os.getenv('DB_PORT', 3306))
 
     # Conexão bruta para criar o banco caso não exista
     conn = pymysql.connect(host=db_host, user=db_user, password=db_password, port=db_port)

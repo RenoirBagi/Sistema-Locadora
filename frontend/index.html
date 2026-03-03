@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Aluguéis - YOLOOK</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -15,11 +16,9 @@
       <a href="index.html" class="logo">YOLOOK</a>
       <nav class="main-nav">
         <a href="dashboard.html" class="active">Dashboard</a>
-        <a href="index.html">Ver Aluguéis</a>
-        <a href="filmes.html">Catálogo de Filmes</a>
-        <a href="novo_aluguel.html">Alugar</a>
-        <a href="novo_cliente.html">Cadastrar Cliente</a>
-        <a href="novo_filme.html">Cadastrar Filme</a>
+        <a href="index.html">Aluguéis</a>
+        <a href="filmes.html">Filmes</a>
+        <a href="novo_cliente.html">Clientes</a>
       </nav>
       <div class="search-container">
         <input type="search" placeholder="Buscar filme">
@@ -38,9 +37,11 @@
         <tr>
           <th>ID</th>
           <th>CPF Cliente</th>
-          <th>Código Filme</th>
+          <th>Filme</th>
           <th>Data Aluguel</th>
-          <th>Data Devolução</th>
+          <th>Dev. Prevista</th>
+          <th>Devolvido em</th>
+          <th>Dias</th>
           <th>Valor (R$)</th>
           <th>Ações</th>
         </tr>
@@ -50,7 +51,11 @@
     </table>
   </main>
 
+  <script src="js/dialog.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/config.js"></script>
   <script src="js/alugueis.js"></script>
+  <script src="js/search.js"></script>
 </body>
 
 </html>

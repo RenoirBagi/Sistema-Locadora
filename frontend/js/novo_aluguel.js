@@ -1,17 +1,20 @@
-const API_URL = "http://localhost:5000";
-
 document.getElementById("form-aluguel").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const data = {
-    "cliente_cpf": e.target.cpf_cliente.value,
-    "codigo_filme": e.target.codigo_filme.value,
-    "valor_diaria": 20.99
-  };
+  const cliente_cpf = e.target.cpf_cliente.value;
+  const codigo_filme = parseInt(e.target.codigo_filme.value);
+  const data_devolucao_prevista = e.target.data_devolucao_prevista.value;
 
-  console.log(e.target.cpf_cliente.value)
-  console.log(e.target.codigo_filme.value)
-  console.log(data)
+  if (!data_devolucao_prevista) {
+    toast.error("Informe a data de devolução prevista.");
+    return;
+  }
+
+  const data = {
+    "cliente_cpf": cliente_cpf,
+    "codigo_filme": codigo_filme,
+    "data_devolucao_prevista": data_devolucao_prevista
+  };
 
   const response = await fetch(`${API_URL}/alugueis/`, {
     method: "POST",
@@ -20,9 +23,10 @@ document.getElementById("form-aluguel").addEventListener("submit", async (e) => 
   });
 
   const result = await response.json();
-  alert(result.mensagem || result.erro);
-
   if (response.ok) {
-    window.location.href = "index.html";
+    toast.success(result.mensagem || "Aluguel cadastrado com sucesso!");
+    setTimeout(() => window.location.href = "index.html", 1500);
+  } else {
+    toast.error(result.erro || "Erro ao cadastrar aluguel.");
   }
 });

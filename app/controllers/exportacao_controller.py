@@ -9,25 +9,7 @@ from app.models.aluguel import Aluguel
 from app.models.cliente import Cliente
 from app.models.filme import Filme
 from app.models.historico_exportacao import HistoricoExportacao
-
-DATE_FORMAT = "%Y-%m-%d"
-
-
-def _parse_date(value, default=None):
-    if not value:
-        return default
-    return datetime.strptime(value, DATE_FORMAT)
-
-
-def _intervalo(inicio_str, fim_str):
-    hoje = datetime.now()
-    fim = _parse_date(fim_str, hoje)
-    inicio = _parse_date(inicio_str, fim)
-    if inicio > fim:
-        inicio, fim = fim, inicio
-    inicio = datetime.combine(inicio.date(), datetime.min.time())
-    fim = datetime.combine(fim.date(), datetime.max.time())
-    return inicio, fim
+from app.utils import get_date_range
 
 
 def _dados_alugueis(inicio, fim):
@@ -35,6 +17,7 @@ def _dados_alugueis(inicio, fim):
         db.session.query(
             Aluguel.id.label('id_aluguel'),
             Aluguel.data_aluguel,
+            Aluguel.data_devolucao_prevista,
             Aluguel.data_devolucao,
             Aluguel.status,
             Cliente.cpf.label('cliente_cpf'),
@@ -56,7 +39,8 @@ def _dados_alugueis(inicio, fim):
         dados.append({
             'ID Aluguel': row.id_aluguel,
             'Data Aluguel': row.data_aluguel.strftime('%d/%m/%Y') if row.data_aluguel else '',
-            'Data Devolução Prevista': row.data_devolucao.strftime('%d/%m/%Y') if row.data_devolucao else '',
+            'Data Devolução Prevista': row.data_devolucao_prevista.strftime('%d/%m/%Y') if row.data_devolucao_prevista else '',
+            'Data Devolução Real': row.data_devolucao.strftime('%d/%m/%Y') if row.data_devolucao else '',
             'Status': 'Ativo' if row.status else 'Finalizado',
             'CPF Cliente': row.cliente_cpf,
             'Nome Cliente': row.cliente_nome,
@@ -132,7 +116,7 @@ def gerar_exportacao(tipo, formato, inicio_str, fim_str):
     if formato not in {'csv', 'xlsx'}:
         raise ValueError('Formato inválido')
 
-    inicio, fim = _intervalo(inicio_str, fim_str)
+    inicio, fim = get_date_range(inicio_str, fim_str, days_back=0)
     tipo_padrao = 'aluguéis' if tipo in {'aluguéis', 'alugueis'} else 'filmes'
 
     dados = _dados_alugueis(inicio, fim) if tipo_padrao == 'aluguéis' else _dados_filmes(inicio, fim)
