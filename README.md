@@ -1,5 +1,7 @@
 # Sistema Locadora – Dashboard e Exportação
 
+# Teste
+
 Aplicação full-stack construída em Flask + Vanilla JS para gerenciar uma locadora fictícia. O projeto oferece CRUD completo de clientes, filmes e aluguéis, além de um dashboard analítico com filtros de período, gráficos (curva S, donut, barras) e exportação de relatórios (CSV/XLSX) com histórico de downloads.
 
 ## Sumário
