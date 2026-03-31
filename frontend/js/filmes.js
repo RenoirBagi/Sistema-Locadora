@@ -38,13 +38,9 @@ async function alugarFilme(filmeId) {
   const cpf = prompt("Informe o CPF do cliente:");
   if (!cpf) return;
 
-  const dataDevolucao = prompt("Data de devolução prevista (AAAA-MM-DD):");
-  if (!dataDevolucao) return;
-
   const data = {
     cliente_cpf: cpf,
-    codigo_filme: filmeId,
-    data_devolucao_prevista: dataDevolucao
+    codigo_filme: filmeId
   };
 
   const response = await fetch(`${API_URL}/alugueis/`, {

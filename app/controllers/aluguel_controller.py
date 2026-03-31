@@ -3,25 +3,15 @@ from app.extensions import db
 from app.models.aluguel import Aluguel
 from app.models.cliente import Cliente
 from app.models.filme import Filme
-from datetime import datetime
+from datetime import datetime, timedelta
+from decimal import Decimal
 
 def criar_aluguel(data):
     cpf_cliente = data.get("cliente_cpf")
     codigo_filme = data.get("codigo_filme")
-    data_devolucao_str = data.get("data_devolucao_prevista")
-
-    if not data_devolucao_str:
-        return {"erro": "A data de devolução prevista é obrigatória"}, 400
-
-    try:
-        data_devolucao_prevista = datetime.fromisoformat(data_devolucao_str)
-    except (ValueError, TypeError):
-        return {"erro": "Data de devolução inválida. Use o formato AAAA-MM-DD"}, 400
 
     data_aluguel = datetime.now()
-
-    if data_devolucao_prevista.date() <= data_aluguel.date():
-        return {"erro": "A data de devolução deve ser posterior à data atual"}, 400
+    data_devolucao_prevista = data_aluguel + timedelta(days=7)
 
     # Validar cliente
     cliente = Cliente.query.filter_by(cpf=cpf_cliente).first()
@@ -40,22 +30,20 @@ def criar_aluguel(data):
     if aluguel_existente:
         return {"erro": "Este cliente já possui este filme alugado"}, 400
 
-    # Calcular período e valor
-    tempo_aluguel = (data_devolucao_prevista.date() - data_aluguel.date()).days or 1
-    valor_diaria = filme.preco
-    valor_total = tempo_aluguel * valor_diaria
+    valor_total = filme.preco
 
     # Criar aluguel
     aluguel = Aluguel(
         cliente_cpf=cpf_cliente,
         filme_id=codigo_filme,
-        valor_diaria=valor_diaria,
+        valor_diaria=filme.preco,
         data_aluguel=data_aluguel,
         data_devolucao_prevista=data_devolucao_prevista,
-        tempo_aluguel=tempo_aluguel,
+        tempo_aluguel=7,
         valor=valor_total,
         status=True
     )
+
     filme.disponivel = False
     db.session.add(aluguel)
     db.session.commit()
@@ -77,6 +65,15 @@ def atualizar_aluguel(id, data):
         return {"erro": "Este aluguel já foi finalizado"}, 400
 
     if data.get("devolver"):
+        data_atual = datetime.now()
+        multa_total = Decimal('0.00')
+
+        if data_atual.date() > aluguel.data_devolucao_prevista.date():
+            dias_atraso = (data_atual.date() - aluguel.data_devolucao_prevista.date()).days
+            taxa_multa = aluguel.valor_diaria / 7
+            multa_total = dias_atraso * taxa_multa
+            aluguel.valor += multa_total
+
         aluguel.status = False
         aluguel.data_devolucao = datetime.now()
 
@@ -85,6 +82,7 @@ def atualizar_aluguel(id, data):
             filme.disponivel = True
 
     db.session.commit()
+
     return {"mensagem": "Aluguel atualizado com sucesso"}, 200
 
 
