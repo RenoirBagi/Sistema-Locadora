@@ -83,7 +83,10 @@ def atualizar_aluguel(id, data):
 
     db.session.commit()
 
-    return {"mensagem": "Aluguel atualizado com sucesso"}, 200
+    return {"mensagem": "Aluguel atualizado com sucesso",
+            "dias_atraso": dias_atraso if data_atual.date() > aluguel.data_devolucao_prevista.date() else 0,
+            "valor_multa": float(multa_total),
+            "valor_final": float(aluguel.valor)}, 200
 
 
 def deletar_aluguel(id):
