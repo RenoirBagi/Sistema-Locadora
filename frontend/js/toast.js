@@ -14,7 +14,7 @@ const toast = (() => {
         return container;
     }
 
-    function _show(message, type = "info", duration = 3500) {
+    function _show(message, type = "info", duration = 7000) {
         const c = _getContainer();
 
         const toast = document.createElement("div");

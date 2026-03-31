@@ -69,9 +69,15 @@ async function devolverAluguel(id) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ devolver: true })
   });
+
   const result = await response.json();
+
   if (response.ok) {
-    toast.success(result.mensagem || "Devolução realizada com sucesso!");
+    if(result.valor_multa > 0) {
+      toast.info(`Devolução com atraso de ${result.dias_atraso} dias.\n\nMulta aplicada: R$ ${result.valor_multa.toFixed(2)}\nValor total final: R$ ${result.valor_final.toFixed(2)}`);
+    } else {
+      toast.success(result.mensagem || "Devolução realizada com sucesso!");
+    }
     carregarAlugueis();
   } else {
     toast.error(result.erro || "Erro ao registrar devolução.");
