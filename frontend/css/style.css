@@ -714,8 +714,10 @@ main.form-page-main {
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 85px);
-    /* Altura da tela menos o header */
+    padding: 60px 0; /* Aumentado para garantir o respiro do cabeçalho */
+    box-sizing: border-box;
 }
+
 
 .form-container {
     background-color: #1A2233;
