@@ -297,7 +297,7 @@ h1 {
 }
 
 .curve-card .chart-wrapper {
-    min-height: 290px;
+    height: 300px;
 }
 
 .insights-grid {
@@ -323,7 +323,7 @@ h1 {
 }
 
 .bar-chart {
-    height: 280px;
+    height: 300px;
 }
 
 .history-card table th,
@@ -507,7 +507,7 @@ h1 {
 
 .chart-wrapper {
     position: relative;
-    min-height: 240px;
+    height: 260px;
     width: 100%;
 }
 

@@ -16,15 +16,15 @@ Aplicação full-stack construída em Flask + Vanilla JS para gerenciar uma loca
 
 ## Arquitetura & Tecnologias
 - **Backend**: [Flask 3](https://flask.palletsprojects.com/), Flask-CORS, Flask-SQLAlchemy.
-- **Banco**: MySQL 8+ acessado via SQLAlchemy/PyMySQL. O `init_db` cria o schema automaticamente (`sistema_locadora`).
+- **Banco**: PostgreSQL (Supabase) acessado via SQLAlchemy/psycopg2.
 - **Frontend**: HTML/CSS/JS puro, Chart.js para gráficos.
 - **Planilhas**: Pandas + OpenPyXL para gerar CSV/XLSX.
 - **Histórico**: Tabela `historico_exportacoes` registra cada exportação com metadados (período, formato, bytes, status).
 
 ## Pré-requisitos
 - Python 3.12+
-- MySQL Server rodando localmente (usuario **root**, senha **root** por padrão – ajuste em `app/config_db.py` caso necessário)
-- Node não é necessário (frontend é estático)
+- Projeto criado no Supabase (PostgreSQL)
+- Variáveis de ambiente configuradas no arquivo `.env`
 
 ## Configuração do Ambiente
 ```bash
@@ -49,8 +49,8 @@ python run.py
 O Flask sobe em `http://127.0.0.1:5000`. As páginas HTML ficam em `frontend/`; abra `frontend/dashboard.html` ou `frontend/index.html` diretamente no navegador (ou sirva com qualquer static server). Para consumir a API via fetch, use `http://localhost:5000` (já configurado no JS).
 
 ### Variáveis importantes
-- `API_URL` no `frontend/js/**/*.js` aponta para `http://localhost:5000`.
-- Ajuste URL ou credenciais do banco em `app/config_db.py` se necessário.
+- Crie um arquivo `.env` na raiz do projeto baseado no `.env.example`.
+- Informe as credenciais fornecidas pelo Supabase (Host, User, Password, DB Name).
 
 ## Endpoints Principais
 | Método | Rota | Descrição |
