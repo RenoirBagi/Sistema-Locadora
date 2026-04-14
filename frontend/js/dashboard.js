@@ -421,12 +421,23 @@ function atualizarSeries(series = []) {
   const chartAlugueis = semDados ? [0] : alugueis;
   const chartReceitas = semDados ? [0] : receitas;
 
-  const ctx = document.getElementById("seriesChart").getContext("2d");
+  const ctx = document.getElementById("seriesChart");
+  const canvasCtx = ctx.getContext("2d");
+  
   if (seriesChart) {
     seriesChart.destroy();
   }
 
-  seriesChart = new Chart(ctx, {
+  // Se não houver dados, escondemos o canvas e paramos por aqui
+  if (semDados) {
+    ctx.style.display = 'none';
+    return;
+  }
+
+  // Caso contrário, garantimos que o canvas esteja visível
+  ctx.style.display = 'block';
+
+  seriesChart = new Chart(canvasCtx, {
     type: "line",
     data: {
       labels: chartLabels,

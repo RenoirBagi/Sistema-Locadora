@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Filmes - YOLOOK</title>
+  <title>Gestão de Funcionários - YOLOOK</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -17,9 +17,9 @@
       <nav class="main-nav">
         <a href="dashboard.html">Dashboard</a>
         <a href="index.html">Aluguéis</a>
-        <a href="filmes.html" class="active">Filmes</a>
+        <a href="filmes.html">Filmes</a>
         <a href="novo_cliente.html">Clientes</a>
-        <a href="funcionarios.html">Funcionários</a>
+        <a href="funcionarios.html" class="active">Funcionários</a>
       </nav>
       <div class="search-container">
         <input type="search" placeholder="Buscar filme">
@@ -28,29 +28,32 @@
   </header>
 
   <main class="main-content">
-    <h1>Lista de Filmes</h1>
-    <button onclick="window.location.href='index.html'">Voltar</button>
-    <button onclick="window.location.href='novo_filme.html'">Cadastrar Filme</button>
+    <h1>Gestão de Funcionários</h1>
+    <button onclick="window.location.href='novo_funcionario.html'">Novo Funcionário</button>
 
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Título</th>
-          <th>Gênero</th>
-          <th>Ano</th>
-          <th>Preço (R$)</th>
+          <th>CPF</th>
+          <th>Nome</th>
+          <th>Cargo</th>
+          <th>Contato</th>
+          <th>Endereço</th>
           <th>Ações</th>
         </tr>
+
+
       </thead>
-      <tbody id="filmes-tbody"></tbody>
+      <tbody id="funcionarios-tbody">
+        <!-- Preenchido via JS -->
+      </tbody>
     </table>
   </main>
 
   <script src="js/dialog.js"></script>
   <script src="js/toast.js"></script>
   <script src="js/config.js"></script>
-  <script src="js/filmes.js"></script>
+  <script src="js/funcionarios.js"></script>
   <script src="js/search.js"></script>
 </body>
 

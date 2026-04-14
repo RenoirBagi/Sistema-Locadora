@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Funcionário - YOLOOK</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="dashboard-page">
+
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="logo">YOLOOK</a>
+            <nav class="main-nav">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="index.html">Aluguéis</a>
+                <a href="filmes.html">Filmes</a>
+                <a href="novo_cliente.html">Clientes</a>
+                <a href="funcionarios.html" class="active">Funcionários</a>
+            </nav>
+            <div class="search-container">
+                <input type="search" placeholder="Buscar filme">
+            </div>
+        </div>
+    </header>
+
+    <main class="form-page-main">
+        <div class="form-container">
+            <div class="form-header">
+                <span>REALIZANDO</span>
+                <h1>Cadastro de Funcionário</h1>
+            </div>
+            <h2>Insira as informações:</h2>
+
+            <form id="form-novo-funcionario">
+                <input type="text" id="cpf" placeholder="CPF (11 dígitos)" required maxlength="11">
+                <input type="text" id="nome" placeholder="Nome Completo" required>
+                <input type="text" id="cargo" placeholder="Cargo" required>
+                <input type="text" id="contato" placeholder="Contato" required>
+                <input type="text" id="endereco" placeholder="Endereço" required>
+                <button type="submit" class="btn-primary">CADASTRAR</button>
+            </form>
+
+
+            <a href="funcionarios.html" class="link-voltar">Voltar para a lista</a>
+        </div>
+    </main>
+
+    <script src="js/toast.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/novo_funcionario.js"></script>
+</body>
+
+</html>
