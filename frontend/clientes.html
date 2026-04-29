@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestão de Funcionários - YOLOOK</title>
+  <title>Gestão de Clientes - YOLOOK</title>
 
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css">
@@ -30,10 +30,10 @@
   </header>
 
   <main class="main-content">
-    <h1>Gestão de Funcionários</h1>
+    <h1>Gestão de Clientes</h1>
 
-    <button onclick="window.location.href='novo_funcionario.html'">
-      Novo Funcionário
+    <button onclick="window.location.href='novo_cliente.html'">
+      Novo Cliente
     </button>
 
     <table>
@@ -41,31 +41,30 @@
         <tr>
           <th>CPF</th>
           <th>Nome</th>
-          <th>Cargo</th>
+          <th>Idade</th>
           <th>Contato</th>
           <th>Endereço</th>
           <th>Ações</th>
         </tr>
       </thead>
 
-      <tbody id="funcionarios-tbody"></tbody>
+      <tbody id="clientes-tbody"></tbody>
     </table>
   </main>
 
-  <!-- Modal Editar Funcionário -->
-  <div id="modal-editar-funcionario" class="modal-overlay">
+  <div id="modal-editar-cliente" class="modal-overlay">
     <div class="modal-box">
-      <h2>Editar Funcionário</h2>
+      <h2>Editar Cliente</h2>
 
-      <form id="form-editar-funcionario">
+      <form id="form-editar-cliente">
         <label for="edit-cpf">CPF</label>
         <input type="text" id="edit-cpf" disabled>
 
         <label for="edit-nome">Nome</label>
         <input type="text" id="edit-nome" required>
 
-        <label for="edit-cargo">Cargo</label>
-        <input type="text" id="edit-cargo" required>
+        <label for="edit-idade">Idade</label>
+        <input type="number" id="edit-idade" required>
 
         <label for="edit-contato">Contato</label>
         <input type="text" id="edit-contato" required>
@@ -74,7 +73,7 @@
         <input type="text" id="edit-endereco" required>
 
         <div class="modal-actions">
-          <button type="button" class="btn-cancelar" onclick="fecharModalFuncionario()">
+          <button type="button" class="btn-cancelar" onclick="fecharModalCliente()">
             Cancelar
           </button>
 
@@ -86,21 +85,20 @@
     </div>
   </div>
 
-  <!-- Modal Excluir Funcionário -->
-  <div id="modal-excluir-funcionario" class="modal-overlay">
+  <div id="modal-excluir-cliente" class="modal-overlay">
     <div class="modal-box modal-confirmacao">
-      <h2>Excluir Funcionário</h2>
+      <h2>Excluir Cliente</h2>
 
-      <p id="texto-confirmar-exclusao-funcionario">
-        Tem certeza que deseja excluir este funcionário?
+      <p id="texto-confirmar-exclusao">
+        Tem certeza que deseja excluir este cliente?
       </p>
 
       <div class="modal-actions">
-        <button type="button" class="btn-cancelar" onclick="fecharModalExcluirFuncionario()">
+        <button type="button" class="btn-cancelar" onclick="fecharModalExcluirCliente()">
           Cancelar
         </button>
 
-        <button type="button" class="btn-excluir-confirmar" onclick="confirmarExclusaoFuncionario()">
+        <button type="button" class="btn-excluir-confirmar" onclick="confirmarExclusaoCliente()">
           Excluir
         </button>
       </div>
@@ -110,7 +108,7 @@
   <script src="js/dialog.js"></script>
   <script src="js/toast.js"></script>
   <script src="js/config.js"></script>
-  <script src="js/funcionarios.js"></script>
+  <script src="js/clientes.js"></script>
   <script src="js/search.js"></script>
 </body>
 
