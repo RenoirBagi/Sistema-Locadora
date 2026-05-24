@@ -8,6 +8,9 @@ class Funcionario(db.Model):
     cargo = db.Column(db.String(60), nullable=False)
     contato = db.Column(db.String(20), nullable=False)
     endereco = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    senha_hash = db.Column(db.String(255), nullable=False)
+    status = db.Column(db.String(20), default='ativo', nullable=False)
 
     def to_dict(self):
         return {
@@ -15,7 +18,9 @@ class Funcionario(db.Model):
             "nome": self.nome,
             "cargo": self.cargo,
             "contato": self.contato,
-            "endereco": self.endereco
+            "endereco": self.endereco,
+            "email": self.email,
+            "status": self.status
         }
 
 

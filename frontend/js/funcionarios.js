@@ -26,14 +26,20 @@ async function carregarFuncionarios() {
         <td>${funcionario.cpf || "-"}</td>
         <td>${funcionario.nome || "-"}</td>
         <td>${funcionario.cargo || "-"}</td>
+        <td>${funcionario.email || "-"}</td>
+        <td>
+          <span class="badge-status ${funcionario.status === 'ativo' ? 'status-ativo' : 'status-inativo'}">
+            ${funcionario.status === 'ativo' ? 'Ativo' : 'Inativo'}
+          </span>
+        </td>
         <td>${funcionario.contato || "-"}</td>
         <td>${funcionario.endereco || "-"}</td>
         <td>
-          <button onclick='abrirModalFuncionario(${JSON.stringify(funcionario)})'>
+          <button class="btn-acao btn-devolver" onclick='abrirModalFuncionario(${JSON.stringify(funcionario)})'>
             Editar
           </button>
 
-          <button onclick='excluirFuncionario(${JSON.stringify(funcionario.cpf)}, ${JSON.stringify(funcionario.nome)})'>
+          <button class="btn-acao btn-deletar" onclick='excluirFuncionario(${JSON.stringify(funcionario.cpf)}, ${JSON.stringify(funcionario.nome)})'>
             Excluir
           </button>
         </td>
@@ -51,6 +57,9 @@ function abrirModalFuncionario(funcionario) {
   document.getElementById("edit-cpf").value = funcionario.cpf || "";
   document.getElementById("edit-nome").value = funcionario.nome || "";
   document.getElementById("edit-cargo").value = funcionario.cargo || "";
+  document.getElementById("edit-email").value = funcionario.email || "";
+  document.getElementById("edit-senha").value = "";
+  document.getElementById("edit-status").value = funcionario.status || "ativo";
   document.getElementById("edit-contato").value = funcionario.contato || "";
   document.getElementById("edit-endereco").value = funcionario.endereco || "";
 
@@ -69,9 +78,16 @@ async function salvarEdicaoFuncionario(event) {
   const funcionarioAtualizado = {
     nome: document.getElementById("edit-nome").value,
     cargo: document.getElementById("edit-cargo").value,
+    email: document.getElementById("edit-email").value,
+    status: document.getElementById("edit-status").value,
     contato: document.getElementById("edit-contato").value,
     endereco: document.getElementById("edit-endereco").value
   };
+
+  const senha = document.getElementById("edit-senha").value;
+  if (senha.trim() !== "") {
+    funcionarioAtualizado.senha = senha;
+  }
 
   try {
     const response = await fetch(`${API_URL}/funcionarios/${cpf}`, {

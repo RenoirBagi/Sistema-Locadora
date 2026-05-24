@@ -9,8 +9,10 @@ if (form) {
         const cargo = document.getElementById("cargo").value;
         const contato = document.getElementById("contato").value;
         const endereco = document.getElementById("endereco").value;
+        const email = document.getElementById("email").value;
+        const senha = document.getElementById("senha").value;
 
-        const data = { cpf, nome, cargo, contato, endereco };
+        const data = { cpf, nome, cargo, contato, endereco, email, senha };
 
 
 
