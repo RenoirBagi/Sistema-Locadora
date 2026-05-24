@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login de Funcionários - YOLOOK</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Script de autenticação no início para gerenciar redirecionamento se já logado -->
+  <script src="js/auth.js"></script>
+</head>
+
+<body class="login-page">
+
+  <main class="login-card">
+    <header>
+      <h1 class="login-logo">YOLOOK</h1>
+      <p class="login-subtitle">PORTAL DO FUNCIONÁRIO</p>
+    </header>
+
+    <form id="form-login" novalidate>
+      <div class="input-group">
+        <label for="email">E-mail Corporativo</label>
+        <input type="email" id="email" placeholder="nome.sobrenome@locadora.com" required autocomplete="email">
+      </div>
+
+      <div class="input-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" placeholder="Digite sua senha" required autocomplete="current-password">
+        <!-- Ícone do Olho em SVG para alternar a visibilidade -->
+        <button type="button" id="btn-toggle-senha" class="btn-toggle-password" title="Mostrar senha" aria-label="Mostrar senha">
+          <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+        </button>
+      </div>
+
+      <button type="submit" id="btn-submit" class="btn-login">
+        <span id="btn-text">Entrar no Sistema</span>
+        <span id="btn-spinner" class="spinner" style="display: none;"></span>
+      </button>
+    </form>
+
+    <footer class="login-footer">
+      <p>&copy; 2026 YOLOOK Locadora. Todos os direitos reservados.</p>
+    </footer>
+  </main>
+
+  <script src="js/toast.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/login.js"></script>
+</body>
+
+</html>

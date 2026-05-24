@@ -11,6 +11,10 @@ def listar_funcionarios():
 def criar_funcionario():
     return funcionario_controller.criar_funcionario()
 
+@funcionarios_bp.route("/login", methods=["POST"])
+def login_funcionario():
+    return funcionario_controller.login_funcionario()
+
 @funcionarios_bp.route("/<string:cpf>", methods=["PUT", "PATCH"])
 def editar_funcionario(cpf):
     return funcionario_controller.editar_funcionario(cpf)

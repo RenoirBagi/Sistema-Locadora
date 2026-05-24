@@ -1275,3 +1275,334 @@ main.form-page-main {
   transform: translateY(-1px);
   box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
 }
+
+/* ==========================================================================
+   ESTILOS PREMIUM - FUNCIONALIDADE DE LOGIN & PERFIL DE USUÁRIO
+   ========================================================================== */
+
+/* 1. Badges de Status (Ativo/Inativo) */
+.badge-status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.status-ativo {
+  background-color: rgba(29, 233, 182, 0.15);
+  color: #1DE9B6;
+  border: 1px solid rgba(29, 233, 182, 0.3);
+}
+
+.status-inativo {
+  background-color: rgba(211, 47, 47, 0.15);
+  color: #FF5252;
+  border: 1px solid rgba(211, 47, 47, 0.3);
+}
+
+/* Select Moderno */
+.select-modern {
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: #fff;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+
+.select-modern option {
+  background-color: #10141E;
+  color: #FFFFFF;
+}
+
+/* 2. Cabeçalho Dinâmico (Perfil de Usuário Logado) */
+.header-profile-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.header-profile-container .user-info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.header-profile-container .user-name {
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.header-profile-container .user-role {
+  color: #8A97B6;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.btn-logout {
+  background: none !important;
+  border: none !important;
+  color: #FF5252 !important;
+  padding: 4px !important;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease !important;
+  margin-bottom: 0 !important;
+}
+
+.btn-logout:hover {
+  background-color: rgba(255, 82, 82, 0.1) !important;
+  transform: scale(1.1) !important;
+}
+
+/* 3. Tela de Login e Estrutura Glassmorphism */
+.login-page {
+  background: radial-gradient(circle at top right, #1E3B70 0%, #10141E 70%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  background: rgba(26, 34, 51, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 3rem;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.login-logo {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, #FFFFFF 0%, #8A97B6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-subtitle {
+  color: #8A97B6;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.5px;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #8A97B6;
+  font-weight: 600;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.input-group input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 14px 18px;
+  padding-right: 48px; /* Espaço para o ícone do olho */
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #2979FF;
+  background-color: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 0 0 4px rgba(41, 121, 255, 0.15);
+}
+
+/* Botão do Olho (Alternar visibilidade) */
+.btn-toggle-password {
+  position: absolute;
+  right: 14px;
+  top: 36px;
+  background: none;
+  border: none;
+  color: #8A97B6;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.btn-toggle-password:hover {
+  color: #FFFFFF;
+}
+
+/* Botão de Envio com Spinner */
+.btn-login {
+  background: linear-gradient(135deg, #2979FF, #1565C0);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(41, 121, 255, 0.25);
+}
+
+.btn-login:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(41, 121, 255, 0.4);
+  background: linear-gradient(135deg, #2979FF, #0D47A1);
+}
+
+.btn-login:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Spinner animado */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Footer / copyright */
+.login-footer {
+  margin-top: 2rem;
+  color: #5A6C8C;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+/* 4. Grid de Formulário em Modais (2 Colunas para Maior Organização) */
+.modal-overlay .modal-box--largo {
+  max-width: 680px;
+  width: min(680px, 95vw);
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.modal-group label {
+  text-align: left;
+  max-width: none;
+  margin-bottom: 6px;
+  color: #C0C8E0;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.modal-group input,
+.modal-group select {
+  width: 100% !important;
+  max-width: none !important;
+  margin-bottom: 0 !important;
+  text-align: left !important;
+  box-sizing: border-box;
+  background-color: #1F2937 !important;
+  border: 1px solid #374151 !important;
+  border-radius: 8px !important;
+  padding: 11px 14px !important;
+  color: #E5E7EB !important;
+  font-size: 0.9rem !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.modal-group input:focus,
+.modal-group select:focus {
+  border-color: #2979FF !important;
+  box-shadow: 0 0 0 3px rgba(41, 121, 255, 0.2) !important;
+  outline: none !important;
+}
+
+.modal-group input:disabled {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  color: #8A97B6 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+/* Ajuste responsivo para celulares */
+@media (max-width: 600px) {
+  .modal-overlay .modal-box--largo {
+    max-width: 420px;
+  }
+  
+  .modal-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
