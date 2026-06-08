@@ -653,6 +653,10 @@ th,
 td {
     padding: 16px 20px;
     text-align: left;
+    /* border-bottom: 1px solid #2A364D; */
+}
+
+tbody > tr {
     border-bottom: 1px solid #2A364D;
 }
 
@@ -689,6 +693,7 @@ td:last-child {
     color: white;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    margin: auto !important;
 }
 
 .btn-devolver {
@@ -1605,4 +1610,12 @@ main.form-page-main {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-}
+}
+
+/* .td-acoes {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+    justify-content: flex-start;
+    min-height: 44px;
+} */
